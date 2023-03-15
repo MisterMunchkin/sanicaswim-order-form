@@ -1,4 +1,4 @@
-import './globals.css'
+import '@/styles/globals.css';
 import { Montserrat } from 'next/font/google';
 
 export const metadata = {
