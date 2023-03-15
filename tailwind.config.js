@@ -9,6 +9,10 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-montserrat)', ...fontFamily.sans]
+      },
+      colors: {
+        'ss-blue': '#477287',
+        'ss-pink': '#f7daef'
       }
     },
   },

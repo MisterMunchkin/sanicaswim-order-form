@@ -2,7 +2,7 @@ import '@/styles/globals.css';
 import { Montserrat } from 'next/font/google';
 
 export const metadata = {
-  title: 'SanicaSwim Order Form',
+  title: 'Sanica Swim Order Form',
   description: 'Order your bikinies now!',
 }
 
