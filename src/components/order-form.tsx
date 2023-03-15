@@ -59,8 +59,8 @@ export default function OrderForm() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="overflow-hidden shadow sm:rounded-md">
             <div className="bg-white px-4 py-5 sm:p-6">
-              <div className="grid grid-cols-6 gap-6">
-                <div className="col-span-6 sm:col-span-3">
+              <div className="grid grid-cols-3 gap-6">
+                <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
                     Instagram Link
                   </label>
@@ -76,14 +76,13 @@ export default function OrderForm() {
                   )}
                 </div>
 
-                <div className="relative mb-6">
-                  <label className="block mb-2" htmlFor="orders">
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="orders">
                     Orders
                   </label>
                   <select
-                    multiple
                     id="orders"
-                    className={`form-multiselect ${errors.orders ? "border-red-500" : ""}`}
+                    className={`${errors.orders ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-pink-300 sm:text-sm sm:leading-6`}
                     {...register("orders")}
                   >
                     <option value="Product A">Product A</option>
@@ -95,13 +94,14 @@ export default function OrderForm() {
                   )}
                 </div>
 
-                <div className="relative mb-6">
-                  <label className="block mb-2" htmlFor="address">
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address">
                     Address
                   </label>
                   <textarea
                     id="address"
-                    className={`form-textarea ${errors.address ? "border-red-500" : ""}`}
+                    rows={3}
+                    className={`${errors.address ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-pink-300 sm:text-sm sm:leading-6`}
                     placeholder="Enter delivery address"
                     {...register("address")}
                   ></textarea>
