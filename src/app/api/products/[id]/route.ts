@@ -7,7 +7,7 @@ export async function GET(request: NextRequest, {params}) {
   const product = products.find(p => p.id === id);
 
   if (!product) {
-    return NextResponse.json(undefined, {status:404, statusText: "No data available"});
+    return NextResponse.json({id: id, error: `No product with id: ${id}`}, {status:404});
   }
 
   return NextResponse.json(product, {status:200});
