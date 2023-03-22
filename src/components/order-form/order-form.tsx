@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "yup-phone-lite";
 
-import { SizeTypes } from '../enums/size';
+import { SizeTypes } from '../../enums/size';
 
 const orderSchema = yup.object().shape({
   name: yup.string().required(),

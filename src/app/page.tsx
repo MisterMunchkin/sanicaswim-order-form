@@ -1,4 +1,6 @@
-import OrderForm from '@/components/order-form';
+import OrderForm from '@/components/order-form/order-form';
+import ProductList from '@/components/product-list/product-list';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
         </div>
 
         <OrderForm></OrderForm>
+
+        <ProductList></ProductList>
       </div>
     </main>
   )
