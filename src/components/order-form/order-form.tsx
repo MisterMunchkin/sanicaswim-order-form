@@ -52,7 +52,7 @@ export default function OrderForm() {
   }
 
   return (
-    <div className="mt-10 sm:mt-0">
+    <div className="max-w-md w-full">
       <div className='mt-5 md:col-span-2 md:mt-0'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="overflow-hidden shadow rounded-md">
