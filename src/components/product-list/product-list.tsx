@@ -3,6 +3,7 @@
 import type { Product } from '@/interfaces/product';
 import useSwr from "swr";
 import Image from 'next/image';
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -14,9 +15,9 @@ export default function ProductList() {
   if (!data) return null
 
   return (
-    <div className="sm:grid sm:grid-cols-3 h-screen sm:h-[500px] space-y-3 sm:space-x-3 items-center overflow-y-scroll rounded-lg">
+    <div className="sm:grid sm:grid-cols-3 h-screen sm:h-[500px] items-center overflow-y-scroll rounded-lg">
       {data.map((product) => (
-        <div key={product.id} className="h-fit">
+        <div key={product.id} className="h-fit p-3">
           <Image
             className="max-w-md w-full h-2/3 object-cover object-center rounded-lg shadow-md"
             src={product.image}
@@ -25,15 +26,16 @@ export default function ProductList() {
             alt="Product Picture"
           />
           <div className="relative px-4 -mt-16 max-w-md sm:max-w-xs w-full">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="bg-white p-3 rounded-lg shadow-lg h-36">
               <div className="mb-8">
                 <div className="text-gray-900 font-bold tracking-wider text-xl mb-2">
                   {product.name} - {product.price}
                 </div>
-                <p className="text-gray-700 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                </p>
               </div>
+
+              <a className='w-12 h-12 bg-ss-blue flex items-center justify-center text-center no-underline text-ss-pink'>
+                <ShoppingCartIcon></ShoppingCartIcon>
+              </a>
             </div>
           </div>
         </div>
