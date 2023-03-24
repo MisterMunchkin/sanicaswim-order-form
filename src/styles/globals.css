@@ -104,6 +104,10 @@ a {
   backdrop-filter: blur(7.5px);
   -webkit-backdrop-filter: blur(7.5px);
 }
+
+.p-inherit {
+  padding: inherit;
+}
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

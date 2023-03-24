@@ -15,7 +15,7 @@ export default function ProductList() {
   if (!data) return null
 
   return (
-    <div className="sm:grid sm:grid-cols-3 h-screen sm:h-[500px] items-center overflow-y-scroll rounded-lg">
+    <div className="lg:grid lg:grid-cols-3 h-screen sm:h-[500px] items-center overflow-y-scroll rounded-lg">
       {data.map((product) => (
         <div key={product.id} className="h-fit p-3">
           <Image
@@ -26,15 +26,21 @@ export default function ProductList() {
             alt="Product Picture"
           />
           <div className="relative px-4 -mt-16 max-w-md sm:max-w-xs w-full">
-            <div className="bg-white p-3 rounded-lg shadow-lg h-36">
-              <div className="mb-8">
-                <div className="text-gray-900 font-bold tracking-wider text-xl mb-2">
-                  {product.name} - {product.price}
+            <div className="bg-white pt-3 pb-3 pl-3 pr-12 rounded-lg shadow-lg h-content">
+              <div className="mb-2">
+                <div className="text-gray-900 font-medium tracking-wider text-lg mb-2">
+                  {product.name} 
+                </div>
+                <div className="font-bold">
+                  {product.price} PHP
                 </div>
               </div>
 
-              <a className='w-12 h-12 bg-ss-blue flex items-center justify-center text-center no-underline text-ss-pink'>
-                <ShoppingCartIcon></ShoppingCartIcon>
+              <a className='absolute top-2 shadow-lg right-6 w-9 h-9 bg-ss-blue flex items-center justify-center rounded-lg text-center no-underline text-ss-pink'>
+                <ShoppingCartIcon
+                  className='w-6 h-6'
+                >
+                </ShoppingCartIcon>
               </a>
             </div>
           </div>
