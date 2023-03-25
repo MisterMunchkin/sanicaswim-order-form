@@ -17,16 +17,16 @@ export default function ProductList() {
   return (
     <div className="lg:grid lg:grid-cols-3 h-screen sm:h-[500px] items-center overflow-y-scroll rounded-lg">
       {data.map((product) => (
-        <div key={product.id} className="h-fit p-3">
+        <div key={product.id} className="h-fit p-3 hover:drop-shadow-lg ease-in-out duration-300">
           <Image
-            className="max-w-md w-full h-2/3 object-cover object-center rounded-lg drop-shadow-lg"
+            className="max-w-md w-full h-2/3 object-cover object-center rounded-lg"
             src={product.image}
             width="200"
             height="300"
             alt="Product Picture"
           />
           <div className="relative px-4 -mt-16 max-w-md sm:max-w-xs w-full">
-            <div className="bg-white pt-3 pb-3 pl-3 pr-12 rounded-lg drop-shadow-lg h-content">
+            <div className="bg-white pt-3 pb-3 pl-3 pr-12 rounded-lg h-content">
               <div className="mb-2">
                 <div className="text-gray-900 font-medium tracking-wider text-lg mb-2">
                   {product.name} 
@@ -36,7 +36,7 @@ export default function ProductList() {
                 </div>
               </div>
 
-              <a className='absolute top-2 drop-shadow-lg right-2 w-9 h-9 flex items-center justify-center rounded-lg text-center no-underline bg-ss-blue text-ss-pink hover:bg-ss-pink hover:text-ss-blue cursor-pointer'>
+              <a className='absolute top-2 ease-in-out duration-300 right-6 w-9 h-9 flex items-center justify-center rounded-lg text-center no-underline bg-ss-blue text-ss-pink hover:bg-ss-pink hover:text-ss-blue cursor-pointer'>
                 <ShoppingCartIcon
                   className='w-6 h-6'
                 >
