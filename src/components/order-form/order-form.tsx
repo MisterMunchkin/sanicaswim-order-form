@@ -16,11 +16,11 @@ const orderSchema = yup.object().shape({
 });
 
 const orderFormSchema = yup.object().shape({
-  instagramLink: yup.string().url().required("Instagram link is required"),
-  fullName: yup.string().required("Full name is required"),
-  phoneNumber: yup.string().phone("PH", "Invalid phone number").required("Phone number is required"),
+  instagramLink: yup.string().url().required("is required"),
+  fullName: yup.string().required("is required"),
+  phoneNumber: yup.string().phone("PH", "is innvalid").required("is required"),
   // orders: yup.array().of(yup.string()).min(1).required("Atleast 1 order is required"),
-  address: yup.string().required("Address is required"),
+  address: yup.string().required("is required"),
 });
 
 export default function OrderForm() {
@@ -61,38 +61,42 @@ export default function OrderForm() {
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
                     Instagram Link
+                    {errors.instagramLink && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.instagramLink.message === 'string' ? errors.instagramLink.message : 'Invalid input'}</span>
+                    )}
                   </label>
                   <input
                     type="text"
                     id="instagramLink"
-                    className={`${errors.instagramLink ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
                     placeholder="Enter Instagram link"
                     {...register("instagramLink")}
                   />
-                  {errors.instagramLink && (
-                    <p className="text-red-500 mt-1">{typeof errors.instagramLink.message === 'string' ? errors.instagramLink.message : 'Invalid input'}</p>
-                  )}
+                  
                 </div>
 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="fullName">
                     Full Name
+                    {errors.fullName && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.fullName.message === 'string' ? errors.fullName.message : 'Invalid input'}</span>
+                    )}
                   </label>
                   <input
                     type="text"
                     id="fullName"
-                    className={`${errors.fullName ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
                     placeholder="Enter Full name"
                     {...register("fullName")}
                   />
-                  {errors.fullName && (
-                    <p className="text-red-500 mt-1">{typeof errors.fullName.message === 'string' ? errors.fullName.message : 'Invalid input'}</p>
-                  )}
                 </div>
                 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="phoneNumber">
                     Phone Number
+                    {errors.phoneNumber && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.phoneNumber.message === 'string' ? errors.phoneNumber.message : 'Invalid input'}</span>
+                    )}
                   </label>
                   <input
                     type="text"
@@ -101,25 +105,22 @@ export default function OrderForm() {
                     placeholder="Enter Phone Number"
                     {...register("phoneNumber")}
                   />
-                  {errors.phoneNumber && (
-                    <p className="text-red-500 mt-1">{typeof errors.phoneNumber.message === 'string' ? errors.phoneNumber.message : 'Invalid input'}</p>
-                  )}
                 </div>
 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address">
                     Address
+                    {errors.address && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.message === 'string' ? errors.address.message : 'Invalid input'}</span>
+                    )}
                   </label>
                   <textarea
                     id="address"
                     rows={3}
-                    className={`${errors.address ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
                     placeholder="Enter delivery address"
                     {...register("address")}
                   ></textarea>
-                  {errors.address && (
-                    <p className="text-red-500 mt-1">{typeof errors.address.message === 'string' ? errors.address.message : 'Invalid input'}</p>
-                  )}
                 </div>
 
                 {/* <div className="col-span-3">
