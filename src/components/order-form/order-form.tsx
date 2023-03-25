@@ -55,7 +55,7 @@ export default function OrderForm() {
     <div className="max-w-md w-full">
       <div className='mt-5 md:col-span-2 md:mt-0'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="overflow-hidden shadow rounded-md">
+          <div className="overflow-hidden drop-shadow rounded-md">
             <div className="bg-white px-4 py-5 sm:p-6">
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
@@ -65,7 +65,7 @@ export default function OrderForm() {
                   <input
                     type="text"
                     id="instagramLink"
-                    className={`${errors.instagramLink ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className={`${errors.instagramLink ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
                     placeholder="Enter Instagram link"
                     {...register("instagramLink")}
                   />
@@ -81,7 +81,7 @@ export default function OrderForm() {
                   <input
                     type="text"
                     id="fullName"
-                    className={`${errors.fullName ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className={`${errors.fullName ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
                     placeholder="Enter Full name"
                     {...register("fullName")}
                   />
@@ -97,7 +97,7 @@ export default function OrderForm() {
                   <input
                     type="text"
                     id="phoneNumber"
-                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
                     placeholder="Enter Phone Number"
                     {...register("phoneNumber")}
                   />
@@ -113,7 +113,7 @@ export default function OrderForm() {
                   <textarea
                     id="address"
                     rows={3}
-                    className={`${errors.address ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className={`${errors.address ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
                     placeholder="Enter delivery address"
                     {...register("address")}
                   ></textarea>
@@ -128,7 +128,7 @@ export default function OrderForm() {
                   </label>
                   <select
                     id="orders"
-                    className={`${errors.orders ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
+                    className={`${errors.orders ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
                     {...register("orders")}
                   >
                     <option value="Product A">Product A</option>
@@ -143,7 +143,7 @@ export default function OrderForm() {
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
-                    className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink shadow-sm hover:bg-ss-pink hover:text-ss-blue"
+                    className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue"
                   >
                     Submit
                   </button>

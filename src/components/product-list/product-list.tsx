@@ -19,14 +19,14 @@ export default function ProductList() {
       {data.map((product) => (
         <div key={product.id} className="h-fit p-3">
           <Image
-            className="max-w-md w-full h-2/3 object-cover object-center rounded-lg shadow-md"
+            className="max-w-md w-full h-2/3 object-cover object-center rounded-lg drop-shadow-lg"
             src={product.image}
             width="200"
             height="300"
             alt="Product Picture"
           />
           <div className="relative px-4 -mt-16 max-w-md sm:max-w-xs w-full">
-            <div className="bg-white pt-3 pb-3 pl-3 pr-12 rounded-lg shadow-lg h-content">
+            <div className="bg-white pt-3 pb-3 pl-3 pr-12 rounded-lg drop-shadow-lg h-content">
               <div className="mb-2">
                 <div className="text-gray-900 font-medium tracking-wider text-lg mb-2">
                   {product.name} 
@@ -36,7 +36,7 @@ export default function ProductList() {
                 </div>
               </div>
 
-              <a className='absolute top-2 shadow-lg right-6 w-9 h-9 bg-ss-blue flex items-center justify-center rounded-lg text-center no-underline text-ss-pink'>
+              <a className='absolute top-2 drop-shadow-lg right-2 w-9 h-9 flex items-center justify-center rounded-lg text-center no-underline bg-ss-blue text-ss-pink hover:bg-ss-pink hover:text-ss-blue cursor-pointer'>
                 <ShoppingCartIcon
                   className='w-6 h-6'
                 >
