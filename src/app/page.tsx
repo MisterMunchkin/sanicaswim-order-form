@@ -12,11 +12,7 @@ function Home() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-start justify-start sm:space-x-4 space-y-4 sm:space-y-0">
-          <OrderForm></OrderForm>
-          
-          <ProductList></ProductList>
-        </div>
+        <OrderForm></OrderForm>
       </div>
     </main>
   )
