@@ -1,14 +1,22 @@
 'use client';
 
 import type { Product } from '@/interfaces/product';
+
+import {
+  add,
+} from "./selectedProductListSlice";
+
 import useSwr from "swr";
 import Image from 'next/image';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { useAppDispatch } from '../../hooks';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function ProductList() {
   const { data, error, isLoading } = useSwr<Product[]>('/api/products', fetcher)
+
+  const dispatch = useAppDispatch();
 
   if (error) return <div>Failed to load users</div>
   if (isLoading) return <div>Loading...</div>
@@ -39,6 +47,7 @@ export default function ProductList() {
               <a className='absolute top-2 ease-in-out duration-300 right-6 w-9 h-9 flex items-center justify-center rounded-lg text-center no-underline bg-ss-blue text-ss-pink hover:bg-ss-pink hover:text-ss-blue cursor-pointer'>
                 <ShoppingCartIcon
                   className='w-6 h-6'
+                  onClick={() => dispatch(add(product))}
                 >
                 </ShoppingCartIcon>
               </a>

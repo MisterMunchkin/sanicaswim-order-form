@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
-import productListReducer from './features/product-list/productListSlice';
+import selectedProductListSlice from './features/product-list/selectedProductListSlice';
 
 export function makeStore() {
   return configureStore({
-    reducer: { productList: productListReducer }
+    reducer: { productList: selectedProductListSlice }
   });
 }
 

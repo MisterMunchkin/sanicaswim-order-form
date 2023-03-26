@@ -1,5 +1,5 @@
 import OrderForm from '@/features/order-form/order-form';
-import ProductList from '@/features/product-list/product-list';
+import ProductList from '@/features/product-list/ProductList';
 
 function Home() {
   return (
