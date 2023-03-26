@@ -1,5 +1,4 @@
-import OrderForm from '@/features/order-form/order-form';
-import ProductList from '@/features/product-list/ProductList';
+import OrderContainer from '@/components/OrderContainer';
 
 function Home() {
   return (
@@ -12,7 +11,7 @@ function Home() {
           </p>
         </div>
 
-        <OrderForm></OrderForm>
+        <OrderContainer></OrderContainer>
       </div>
     </main>
   )
