@@ -1,7 +1,7 @@
-import OrderForm from '@/components/order-form/order-form';
-import ProductList from '@/components/product-list/product-list';
+import OrderForm from '@/features/order-form/order-form';
+import ProductList from '@/features/product-list/product-list';
 
-export default function Home() {
+function Home() {
   return (
     <main className='flex max-h-full items-center py-12 px-4 sm:px-6 lg:px-8'>
       <div className="w-full space-y-8">
@@ -12,11 +12,14 @@ export default function Home() {
           </p>
         </div>
 
-        <div className='flex flex-col sm:flex-row items-start justify-start sm:space-x-4 space-y-4 sm:space-y-0'>
+        <div className="flex flex-col sm:flex-row items-start justify-start sm:space-x-4 space-y-4 sm:space-y-0">
           <OrderForm></OrderForm>
+          
           <ProductList></ProductList>
         </div>
       </div>
     </main>
   )
 }
+
+export default Home;
