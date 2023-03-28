@@ -5,7 +5,8 @@ import { Product } from '@/interfaces/product';
 import { useAppDispatch } from '../../hooks';
 import { add } from './selectedProductListSlice';
 import { SelectedProduct } from '@/interfaces/selected-product';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { SizeTypes } from '../../enums/size';
 
 interface ProductCardProps {
   product: Product
@@ -13,24 +14,27 @@ interface ProductCardProps {
 
 export default function ProductCard({product}: ProductCardProps) {
   const dispatch = useAppDispatch();
+  const [selectedProduct, setSelectedProduct] = useState<SelectedProduct>({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image: product.image,
+    size: SizeTypes.S
+  })
 
   const handleAddToCart = (product: Product) => {
-    let selectedProduct: SelectedProduct = {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image
-    }
-
     dispatch(add(selectedProduct));
   }
 
   const handleSizeChange = useCallback(
     (selectedSize: string) => {
       //update product
-      console.log(selectedSize);
+      let typedSizeString = selectedSize as keyof typeof SizeTypes;
+      selectedProduct.size = SizeTypes[typedSizeString];
+
+      setSelectedProduct(selectedProduct);
     },
-    []
+    [selectedProduct]
   );
 
   return (

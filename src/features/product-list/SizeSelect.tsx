@@ -1,3 +1,4 @@
+import { SizeTypes } from "@/enums/size";
 import React from "react";
 import { ChangeEvent } from "react";
 
@@ -17,12 +18,12 @@ export const SizeSelect = ({sizeOptions, handleSizeChange} : SizeSlectProps) => 
 
   return (
     <select 
-    className=" text-sm rounded-lg focus:ring-ss-pink focus:border-ss-pink block w-16 p-2.5"
+    className=" text-sm rounded-lg focus:ring-ss-pink focus:border-ss-pink block w-24 p-2.5"
     value={selectValue}
     onChange={onChange}
     >
     {sizeOptions.map((sizeOption) => (
-        <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
+        <option key={sizeOption} value={sizeOption}>{SizeTypes[sizeOption as keyof typeof SizeTypes]}</option>
     ))}
     </select>
   );

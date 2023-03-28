@@ -159,7 +159,7 @@ export default function OrderForm() {
 
         <div>
           {selectedProductList.map((product) => (
-            <span key={product.id}>{product.name}</span>
+            <span key={product.id}>{product.name} {product.size}</span>
           ))}
         </div>
       </div>
