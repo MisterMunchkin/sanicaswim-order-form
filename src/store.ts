@@ -4,7 +4,7 @@ import selectedProductListSlice from './features/product-list/selectedProductLis
 
 export function makeStore() {
   return configureStore({
-    reducer: { productList: selectedProductListSlice }
+    reducer: { selectedProductList: selectedProductListSlice }
   });
 }
 

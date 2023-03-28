@@ -28,7 +28,7 @@ export default function OrderForm() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
-  const selectedProductList = useAppSelector((state) => state.productList.value);
+  const selectedProductList = useAppSelector((state) => state.selectedProductList.value);
 
   const {
     register,

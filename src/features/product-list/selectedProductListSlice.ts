@@ -1,10 +1,10 @@
 //https://github.com/vercel/next.js/blob/canary/examples/with-redux/src/features/counter/counterSlice.ts
 
-import { Product } from '@/interfaces/product'
+import { SelectedProduct } from '@/interfaces/selected-product';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface ProductListState {
-  value: Array<Product>;
+  value: Array<SelectedProduct>;
 }
 
 const initialState: ProductListState = {
@@ -15,14 +15,14 @@ export const selectedProductListSlice = createSlice({
   name: 'selectedProductList',
   initialState,
   reducers: {
-    setList: (state, action: PayloadAction<Array<Product>>) => {
+    setList: (state, action: PayloadAction<Array<SelectedProduct>>) => {
       state.value = action.payload;
     },
-    add: (state, action: PayloadAction<Product>) => {
+    add: (state, action: PayloadAction<SelectedProduct>) => {
       state.value.push(action.payload);
       console.log(state.value);
     },
-    remove: (state, action: PayloadAction<Product>) => {
+    remove: (state, action: PayloadAction<SelectedProduct>) => {
       const existingIndex = state.value.findIndex(product => product.id === action.payload.id);
 
       if (existingIndex >= 0) {

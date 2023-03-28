@@ -1,7 +1,6 @@
-export type Product = {
+export type SelectedProduct = {
   id: string;
   name: string;
   price: number;
   image: string;
-  sizeOptions: Array<string>;
 }
