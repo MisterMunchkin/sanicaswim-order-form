@@ -4,4 +4,5 @@ export type Product = {
   price: number;
   image: string;
   sizeOptions: Array<string>;
+  selectedSize?: string;
 }
