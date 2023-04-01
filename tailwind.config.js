@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-montserrat)', ...fontFamily.sans]
+        sans: ['var(--font-montserrat)']
       },
       colors: {
         'ss-blue': '#477287',
