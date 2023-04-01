@@ -3,10 +3,12 @@ import Image from 'next/image';
 import { SizeSelect } from './SizeSelect';
 import { Product } from '@/interfaces/product';
 import { useAppDispatch } from '../../hooks';
-import { add } from './selectedProductListSlice';
+import { add } from '../cart/cartSlice';
 import { SelectedProduct } from '@/interfaces/selected-product';
 import { useCallback, useState } from 'react';
 import { SizeTypes } from '../../enums/size';
+
+var cloneDeep = require('lodash.clonedeep');
 
 interface ProductCardProps {
   product: Product
@@ -14,16 +16,17 @@ interface ProductCardProps {
 
 export default function ProductCard({product}: ProductCardProps) {
   const dispatch = useAppDispatch();
+  const sizeOptionOfProduct = product?.sizeOptions?.at(0);
   const [selectedProduct, setSelectedProduct] = useState<SelectedProduct>({
     id: product.id,
     name: product.name,
     price: product.price,
     image: product.image,
-    size: SizeTypes.S
+    size: (sizeOptionOfProduct) ? SizeTypes[sizeOptionOfProduct as keyof typeof SizeTypes] : undefined
   })
 
   const handleAddToCart = (product: Product) => {
-    dispatch(add(selectedProduct));
+    dispatch(add(cloneDeep(selectedProduct)));
   }
 
   const handleSizeChange = useCallback(
