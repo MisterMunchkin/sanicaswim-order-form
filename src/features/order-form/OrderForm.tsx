@@ -28,7 +28,7 @@ export default function OrderForm() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
-  const selectedProductList = useAppSelector((state) => state.selectedProductList.value);
+  const cart = useAppSelector((state) => state.cart.value);
 
   const {
     register,
@@ -126,24 +126,6 @@ export default function OrderForm() {
                   ></textarea>
                 </div>
 
-                {/* <div className="col-span-3">
-                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="orders">
-                    Orders
-                  </label>
-                  <select
-                    id="orders"
-                    className={`${errors.orders ? "border-red-500" : ""} mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6`}
-                    {...register("orders")}
-                  >
-                    <option value="Product A">Product A</option>
-                    <option value="Product B">Product B</option>
-                    <option value="Product C">Product C</option>
-                  </select>
-                  {errors.orders && (
-                    <p className="text-red-500 mt-1">{typeof errors.orders.message === 'string' ? errors.orders.message : 'Invalid input'}</p>
-                  )}
-                </div> */}
-
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
@@ -158,8 +140,8 @@ export default function OrderForm() {
         </form>
 
         <div>
-          {selectedProductList.map((product) => (
-            <span key={product.id}>{product.name} {product.size}</span>
+          {cart.map((cartItem) => (
+            <div key={cartItem.cartItemId}>{cartItem.product.name} - {cartItem.product?.size} - {cartItem.quantity} - {cartItem.subTotal} </div>
           ))}
         </div>
       </div>
