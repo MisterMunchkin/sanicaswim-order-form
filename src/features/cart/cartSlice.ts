@@ -2,29 +2,26 @@
 
 import { SelectedProduct } from '@/interfaces/selected-product';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { CartInterface, CartItemInterface } from './Cart.class';
 
-export interface CartItemState {
-  cartItemId: string
-  product: SelectedProduct;
-  quantity: number;
-  subTotal: number;
+const initialState: CartInterface = {
+  value: [],
+  getTotal: (cartItems: Array<CartItemInterface>): number => {
+    let total = 0;
+    cartItems.forEach(cartItem => {
+      total += cartItem.subTotal;
+    });
+    return total;
+  }
 }
 
-export interface CartState {
-  value: Array<CartItemState>;
-}
-
-const initialState: CartState = {
-  value: []
-}
-
-const createNewCartItem = (product: SelectedProduct): CartItemState => {
+const createNewCartItem = (product: SelectedProduct): CartItemInterface => {
   return {
     cartItemId: product.id + product.size ?? '',
     product: product,
     quantity: 1,
     subTotal: product.price
-  } as CartItemState;
+  } as CartItemInterface;
 }
 
 const getSubtotal = (price: number, quantity: number): number => {
