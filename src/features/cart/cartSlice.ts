@@ -26,10 +26,6 @@ const createNewCartItem = (product: SelectedProduct): CartItemInterface => {
   } as CartItemInterface;
 }
 
-const getSubtotal = (price: number, quantity: number): number => {
-  return price * quantity;
-}
-
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
