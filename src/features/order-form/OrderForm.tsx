@@ -8,6 +8,7 @@ import "yup-phone-lite";
 
 import { SizeTypes } from '../../enums/size';
 import { useAppSelector } from "@/hooks";
+import Cart from "../cart/Cart";
 
 const orderSchema = yup.object().shape({
   name: yup.string().required(),
@@ -27,8 +28,6 @@ export default function OrderForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
-
-  const cart = useAppSelector((state) => state.cart.value);
 
   const {
     register,
@@ -140,9 +139,7 @@ export default function OrderForm() {
         </form>
 
         <div>
-          {cart.map((cartItem) => (
-            <div key={cartItem.cartItemId}>{cartItem.product.name} - {cartItem.product?.size} - {cartItem.quantity} - {cartItem.subTotal} </div>
-          ))}
+          <Cart></Cart>
         </div>
       </div>
     </div>
