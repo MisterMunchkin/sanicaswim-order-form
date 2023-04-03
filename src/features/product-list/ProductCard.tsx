@@ -25,7 +25,7 @@ export default function ProductCard({product}: ProductCardProps) {
     size: (sizeOptionOfProduct) ? SizeTypes[sizeOptionOfProduct as keyof typeof SizeTypes] : undefined
   })
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = () => {
     dispatch(add(cloneDeep(selectedProduct)));
   }
 
@@ -63,7 +63,7 @@ export default function ProductCard({product}: ProductCardProps) {
           <a className='absolute top-2 ease-in-out duration-300 right-6 w-9 h-9 flex items-center justify-center rounded-lg text-center no-underline bg-ss-blue text-ss-pink hover:bg-ss-pink hover:text-ss-blue cursor-pointer'>
             <ShoppingCartIcon
               className='w-6 h-6'
-              onClick={() => handleAddToCart(product)}
+              onClick={() => handleAddToCart()}
             >
             </ShoppingCartIcon>
           </a>

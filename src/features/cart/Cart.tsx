@@ -2,6 +2,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { CartItemInterface } from './Cart.class';
 import { remove } from './cartSlice';
+import CartItem from './CartItem';
 
 var cloneDeep = require('lodash.clonedeep');
 
@@ -25,32 +26,7 @@ export default function Cart() {
         <ul role="list" className="divide-y divide-gray-200">
           {cartItems.map((cartItem) => (
             <li key={cartItem.cartItemId} className="py-3">
-              <div className="flex items-center space-x-4">
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {cartItem.product.name}
-                  </p>
-                  <p className="text-sm text-gray-500 truncate">
-                    ₱{cartItem.product.price}
-                  </p>
-                  <p className="text-sm text-gray-500 truncate">
-                    {cartItem.product.size}
-                  </p>
-                </div>
-                <div className="flex-0 text-sm text-gray-900">
-                  {cartItem.quantity}
-                </div>
-                <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                  ₱{cartItem.getSubTotal(cartItem.product.price, cartItem.quantity)}
-                </div>
-                <div className="inline-flex items-center">
-                  <TrashIcon
-                    className='w-6 h-6 cursor-pointer hover:text-red-500 ease-in-out duration-300'
-                    onClick={() => handleDeleteFromCart(cartItem)}
-                  >
-                  </TrashIcon>
-                </div>
-              </div>
+              <CartItem cartItem={cartItem}></CartItem>
             </li>
           ))}
         </ul>
