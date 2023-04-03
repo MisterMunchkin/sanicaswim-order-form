@@ -1,9 +1,20 @@
-import { useAppSelector } from '../../hooks';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { CartItemInterface } from './Cart.class';
+import { remove } from './cartSlice';
+
+var cloneDeep = require('lodash.clonedeep');
 
 export default function Cart() {
+  const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart);
   const cartItems = cart.value;
   // https://tailwindcomponents.com/component/tailwind-css-users-card-list
+
+  const handleDeleteFromCart = (product: CartItemInterface) => {
+    dispatch(remove(cloneDeep(product)));
+  }
+
   return (
     <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8">
       <div className="flex justify-between items-center mb-4">
@@ -31,6 +42,13 @@ export default function Cart() {
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900">
                   ₱{cartItem.getSubTotal(cartItem.product.price, cartItem.quantity)}
+                </div>
+                <div className="inline-flex items-center">
+                  <TrashIcon
+                    className='w-6 h-6 cursor-pointer hover:text-red-500 ease-in-out duration-300'
+                    onClick={() => handleDeleteFromCart(cartItem)}
+                  >
+                  </TrashIcon>
                 </div>
               </div>
             </li>

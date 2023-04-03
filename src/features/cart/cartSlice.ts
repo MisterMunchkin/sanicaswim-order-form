@@ -48,8 +48,8 @@ export const cartSlice = createSlice({
     },
     removeQuantity: (state, action: PayloadAction<SelectedProduct>) => {
     },
-    remove: (state, action: PayloadAction<SelectedProduct>) => {
-      const existingIndex = state.value.findIndex(cartItem => cartItem.product.id === action.payload.id);
+    remove: (state, action: PayloadAction<CartItemInterface>) => {
+      const existingIndex = state.value.findIndex(cartItem => cartItem.cartItemId === action.payload.cartItemId);
 
       if (existingIndex >= 0) {
         state.value.splice(existingIndex, 1);
