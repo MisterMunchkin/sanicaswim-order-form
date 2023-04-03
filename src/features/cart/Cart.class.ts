@@ -4,7 +4,7 @@ export interface CartItemInterface {
   cartItemId: string
   product: SelectedProduct;
   quantity: number;
-  subTotal: number;
+  getSubTotal: (price: number, quantity: number) => number;
 }
 
 export interface CartInterface {

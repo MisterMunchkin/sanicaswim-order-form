@@ -30,7 +30,7 @@ export default function Cart() {
                   {cartItem.quantity}
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                  ₱{cartItem.subTotal}
+                  ₱{cartItem.getSubTotal(cartItem.product.price, cartItem.quantity)}
                 </div>
               </div>
             </li>

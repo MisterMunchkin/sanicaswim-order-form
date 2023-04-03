@@ -9,7 +9,7 @@ const initialState: CartInterface = {
   getTotal: (cartItems: Array<CartItemInterface>): number => {
     let total = 0;
     cartItems.forEach(cartItem => {
-      total += cartItem.subTotal;
+      total += cartItem.getSubTotal(cartItem.product.price, cartItem.quantity);
     });
     return total;
   }
@@ -20,7 +20,9 @@ const createNewCartItem = (product: SelectedProduct): CartItemInterface => {
     cartItemId: product.id + product.size ?? '',
     product: product,
     quantity: 1,
-    subTotal: product.price
+    getSubTotal: (price: number, quantity: number): number => {
+      return price * quantity;
+    } 
   } as CartItemInterface;
 }
 
@@ -43,9 +45,7 @@ export const cartSlice = createSlice({
       } else {
         //else update quantity and subTotal of existing cart item
         const cartItemState = state.value[cartIndex];
-
         cartItemState.quantity += 1;
-        cartItemState.subTotal = getSubtotal(cartItemState.quantity, cartItemState.product.price);
       }
     },
     addQuantity: (state, action: PayloadAction<SelectedProduct>) => {
