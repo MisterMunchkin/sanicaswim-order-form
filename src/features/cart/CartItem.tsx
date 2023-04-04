@@ -55,7 +55,7 @@ export default function CartItem({cartItem}: CartItemProps) {
       </div>
       <div className="inline-flex items-center">
         <TrashIcon
-          className='w-6 h-6 cursor-pointer hover:text-red-500 ease-in-out duration-300'
+          className='w-6 h-6 cursor-pointer text-red-500 hover:text-red-700 ease-in-out duration-300'
           onClick={() => handleDeleteFromCart(cartItem)}
         >
         </TrashIcon>
