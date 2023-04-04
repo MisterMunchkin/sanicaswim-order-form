@@ -4,10 +4,11 @@ export interface CartItemInterface {
   cartItemId: string
   product: SelectedProduct;
   quantity: number;
-  getSubTotal: (price: number, quantity: number) => number;
+  subTotal: number;
 }
 
 export interface CartInterface {
   value: Array<CartItemInterface>;
-  getTotal: (cartItems: Array<CartItemInterface>) => number;
+  total: number;
 }
+

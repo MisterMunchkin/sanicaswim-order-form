@@ -4,7 +4,8 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}"
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+    './next.config.js'
   ],
   theme: {
     extend: {
@@ -20,11 +21,4 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms')
   ],
-  purge: {
-    content: [
-      './src/**/*.{js,ts,jsx,tsx}', 
-      './src/components/**/*.{js,ts,jsx,tsx}',
-      './next.config.js'
-    ]
-  }
 }

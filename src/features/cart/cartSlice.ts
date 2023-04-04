@@ -6,13 +6,7 @@ import { CartInterface, CartItemInterface } from './Cart.class';
 
 const initialState: CartInterface = {
   value: [],
-  getTotal: (cartItems: Array<CartItemInterface>): number => {
-    let total = 0;
-    cartItems.forEach(cartItem => {
-      total += cartItem.getSubTotal(cartItem.product.price, cartItem.quantity);
-    });
-    return total;
-  }
+  total: 0
 }
 
 const createNewCartItem = (product: SelectedProduct): CartItemInterface => {
@@ -20,10 +14,24 @@ const createNewCartItem = (product: SelectedProduct): CartItemInterface => {
     cartItemId: product.id + product.size ?? '',
     product: product,
     quantity: 1,
-    getSubTotal: (price: number, quantity: number): number => {
-      return price * quantity;
-    } 
+    subTotal: product.price
   } as CartItemInterface;
+}
+
+const updateSubTotal = (cartItem: CartItemInterface) => {
+  cartItem.subTotal = getSubTotal(cartItem.product.price, cartItem.quantity)
+}
+
+const getSubTotal = (price: number, quantity: number): number => {
+  return price * quantity;
+}
+
+const getTotal = (cartItems: Array<CartItemInterface>): number => {
+  let total = 0;
+  cartItems.forEach(cartItem => {
+    total += getSubTotal(cartItem.product.price, cartItem.quantity);
+  });
+  return total;
 }
 
 export const cartSlice = createSlice({
@@ -42,11 +50,22 @@ export const cartSlice = createSlice({
         //else update quantity and subTotal of existing cart item
         const cartItemState = state.value[cartIndex];
         cartItemState.quantity += 1;
+        updateSubTotal(cartItemState);
       }
+
+      state.total = getTotal(state.value);
     },
-    addQuantity: (state, action: PayloadAction<SelectedProduct>) => {
-    },
-    removeQuantity: (state, action: PayloadAction<SelectedProduct>) => {
+    setQuantity: (state, action: PayloadAction<{cartItemId: string, updatedQuantity: number}>) => {
+      const cartIndex = state.value.findIndex(cartItem => cartItem.cartItemId === action.payload.cartItemId);
+      if (cartIndex < 0) {
+        return;
+      }
+
+      const cartItemState = state.value[cartIndex];
+      cartItemState.quantity = action.payload.updatedQuantity;
+
+      updateSubTotal(cartItemState);
+      state.total = getTotal(state.value);
     },
     remove: (state, action: PayloadAction<CartItemInterface>) => {
       const existingIndex = state.value.findIndex(cartItem => cartItem.cartItemId === action.payload.cartItemId);
@@ -54,13 +73,15 @@ export const cartSlice = createSlice({
       if (existingIndex >= 0) {
         state.value.splice(existingIndex, 1);
       }
+      state.total = getTotal(state.value);
     },
     reset: (state) => {
       state.value = [];
+      state.total = getTotal(state.value);
     }
   }
 });
 
-export const { add, remove, reset} = cartSlice.actions;
+export const { add, remove, reset, setQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;

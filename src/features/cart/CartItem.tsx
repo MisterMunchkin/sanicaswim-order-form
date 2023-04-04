@@ -1,8 +1,9 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { CartItemInterface } from './Cart.class';
 import { useAppDispatch } from '../../hooks';
-import { remove } from './cartSlice';
+import { remove, setQuantity } from './cartSlice';
 import QuantityPicker from '@/components/QuantityPicker';
+import { useCallback } from 'react';
 
 var cloneDeep = require('lodash.clonedeep');
 
@@ -15,6 +16,20 @@ export default function CartItem({cartItem}: CartItemProps) {
   function handleDeleteFromCart(cartItem: CartItemInterface): void {
     dispatch(remove(cloneDeep(cartItem)))
   }
+
+  const handleUpdatedQuantity = useCallback(
+    (updatedQuantity: number) => {
+      if (updatedQuantity > 0) {  
+        dispatch(setQuantity({
+          cartItemId: cartItem.cartItemId,
+          updatedQuantity: updatedQuantity
+        }));
+      } else {
+        dispatch(remove(cloneDeep(cartItem)));
+      }
+    },
+    [cartItem, dispatch]
+  )
 
   return (
     <div className="flex items-center space-x-4">
@@ -32,10 +47,11 @@ export default function CartItem({cartItem}: CartItemProps) {
       <div className="flex-0">
         <QuantityPicker
           quantity={cartItem.quantity}
+          handleUpdatedQuantity={handleUpdatedQuantity}
         />
       </div>
       <div className="inline-flex items-center text-base font-semibold text-gray-900">
-        ₱{cartItem.getSubTotal(cartItem.product.price, cartItem.quantity)}
+        ₱{cartItem.subTotal}
       </div>
       <div className="inline-flex items-center">
         <TrashIcon

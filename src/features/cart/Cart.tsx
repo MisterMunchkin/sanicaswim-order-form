@@ -21,7 +21,7 @@ export default function Cart() {
           ))}
         </ul>
         <div className="divide-y divide-gray-200">
-          Total: {cart.getTotal(cart.value)}
+          Total: {cart.total}
         </div>
       </div>
     </div>
