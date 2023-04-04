@@ -2,6 +2,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { CartItemInterface } from './Cart.class';
 import { useAppDispatch } from '../../hooks';
 import { remove } from './cartSlice';
+import QuantityPicker from '@/components/QuantityPicker';
 
 var cloneDeep = require('lodash.clonedeep');
 
@@ -28,8 +29,10 @@ export default function CartItem({cartItem}: CartItemProps) {
           {cartItem.product.size}
         </p>
       </div>
-      <div className="flex-0 text-sm text-gray-900">
-        {cartItem.quantity}
+      <div className="flex-0">
+        <QuantityPicker
+          quantity={cartItem.quantity}
+        />
       </div>
       <div className="inline-flex items-center text-base font-semibold text-gray-900">
         ₱{cartItem.getSubTotal(cartItem.product.price, cartItem.quantity)}
