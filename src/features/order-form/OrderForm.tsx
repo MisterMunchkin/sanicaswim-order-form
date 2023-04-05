@@ -124,7 +124,16 @@ export default function OrderForm() {
                     {...register("address")}
                   ></textarea>
                 </div>
-
+                
+                <div className="col-span-3 ">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl font-bold leading-none text-gray-900">Cart</h3>
+                  </div>
+                  <div className="max-h-56 overflow-auto">
+                    <Cart />
+                  </div>
+                </div>
+                
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
@@ -137,10 +146,6 @@ export default function OrderForm() {
             </div>
           </div>
         </form>
-
-        <div>
-          <Cart></Cart>
-        </div>
       </div>
     </div>
   )
