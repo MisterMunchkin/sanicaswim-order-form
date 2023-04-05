@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
-import  cartSlice from './features/cart/cartSlice';
+import  cartSlice from './features/planned/cart/cartSlice';
 
 export function makeStore() {
   return configureStore({

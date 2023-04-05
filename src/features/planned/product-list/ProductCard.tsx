@@ -2,11 +2,11 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { SizeSelect } from './SizeSelect';
 import { Product } from '@/interfaces/product';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { add } from '../cart/cartSlice';
 import { SelectedProduct } from '@/interfaces/selected-product';
 import { useCallback, useState } from 'react';
-import { SizeTypes } from '../../enums/size';
+import { SizeTypes } from '../../../enums/size';
 
 var cloneDeep = require('lodash.clonedeep');
 

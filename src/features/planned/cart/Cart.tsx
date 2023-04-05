@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../../hooks';
 import CartItem from './CartItem';
 
 //Make the UI more like shopee, it looks better for mobile

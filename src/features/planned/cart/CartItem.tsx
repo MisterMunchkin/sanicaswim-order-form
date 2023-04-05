@@ -1,6 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { CartItemInterface } from './Cart.class';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { remove, setQuantity } from './cartSlice';
 import QuantityPicker from '@/components/QuantityPicker';
 import { useCallback } from 'react';
