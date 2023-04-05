@@ -1,14 +1,11 @@
 "use client";
 
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "yup-phone-lite";
 
 import { SizeTypes } from '../../enums/size';
-import { useAppSelector } from "@/hooks";
-import Cart from "../planned/cart/Cart";
 
 const orderSchema = yup.object().shape({
   name: yup.string().required(),
@@ -25,38 +22,18 @@ const orderFormSchema = yup.object().shape({
 });
 
 export default function OrderForm() {
-  const [submitting, setSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
-
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(orderFormSchema)
   });
 
-  const onSubmit = async (data) => {
-    console.log(data);
-    setSubmitting(true);
-    setSubmitError(null);
-
-    try {
-      // await axios.post("/api/orders", formData);
-      console.log(data);
-      setSubmitSuccess(true);
-    } catch (error: any) {
-      setSubmitError(error);
-    }
-
-    setSubmitting(false);
-  }
-
   return (
     <div className="max-w-md w-full">
       <div className='mt-5 md:col-span-2 md:mt-0'>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form name="order-form" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="order-form"/>
           <div className="overflow-hidden drop-shadow rounded-md">
             <div className="bg-white px-4 py-5 sm:p-6">
               <div className="grid grid-cols-3 gap-6">

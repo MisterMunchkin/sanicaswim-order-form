@@ -24,6 +24,7 @@
     "yup-phone-lite": "^2.0.1"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.29.5-appdir.0",
     "@types/node": "^18.15.10",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
