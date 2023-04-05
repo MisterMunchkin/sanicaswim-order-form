@@ -7,8 +7,9 @@ export const metadata = {
 }
 
 const montserrat = Montserrat({ 
+  variable: '--font-montserrat',
   subsets: ['latin'],
-  variable: '--font-montserrat'
+  display: 'swap'
 })
 
 export default function RootLayout({
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${montserrat.variable} font-sans`}>
+    <html lang="en" className={montserrat.variable}>
       <body>{children}</body>
     </html>
   )

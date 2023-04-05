@@ -4,12 +4,13 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}"
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+    './next.config.js'
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-montserrat)', ...fontFamily.sans]
+        sans: ['var(--font-montserrat)']
       },
       colors: {
         'ss-blue': '#477287',
@@ -20,11 +21,4 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms')
   ],
-  purge: {
-    content: [
-      './src/**/*.{js,ts,jsx,tsx}', 
-      './src/components/**/*.{js,ts,jsx,tsx}',
-      './next.config.js'
-    ]
-  }
 }
