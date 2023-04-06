@@ -1,17 +1,27 @@
 "use client";
 
-import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "yup-phone-lite";
 
 import { SizeTypes } from '../../enums/size';
+import { useAppSelector } from "@/hooks";
+import Cart from "../planned/cart/Cart";
 
 const orderSchema = yup.object().shape({
   name: yup.string().required(),
   size: yup.mixed<SizeTypes>().oneOf(Object.values(SizeTypes)).required(),
   quantity: yup.number().positive('Must be more than 0').required()
 });
+
+interface OrderFormInterface {
+  instagramLink: string,
+  fullName: string,
+  phonNumber: string,
+  address: string
+};
 
 const orderFormSchema = yup.object().shape({
   instagramLink: yup.string().url().required("is required"),
@@ -22,18 +32,61 @@ const orderFormSchema = yup.object().shape({
 });
 
 export default function OrderForm() {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+
   const {
     register,
+    handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<OrderFormInterface>({
     resolver: yupResolver(orderFormSchema)
   });
+
+  const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => {
+    setSubmitting(true);
+    setSubmitError(null);
+
+    const form = new FormData();
+    form.append('instagramLink', data.instagramLink);
+    form.append('fullName', data.fullName);
+    form.append('phoneNumber', data.phonNumber);
+    form.append('address', data.address);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        body: form
+      });
+
+      if (response.status === 200) {
+        console.log('Form submitted');
+      } else {
+        console.error('Form failed.');
+      }
+      
+      setSubmitSuccess(true);
+    } catch (error: any) {
+      setSubmitError(error);
+    }
+
+    setSubmitting(false);
+  }
 
   return (
     <div className="max-w-md w-full">
       <div className='mt-5 md:col-span-2 md:mt-0'>
-        <form name="order-form" method="POST" data-netlify="true">
+        <form 
+          onSubmit={handleSubmit(onSubmit)} 
+          action="/"
+          name="order-form" 
+          method="POST" 
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+        >
           <input type="hidden" name="form-name" value="order-form"/>
+          <input type="hidden" name="bot-field" />
           <div className="overflow-hidden drop-shadow rounded-md">
             <div className="bg-white px-4 py-5 sm:p-6">
               <div className="grid grid-cols-3 gap-6">
