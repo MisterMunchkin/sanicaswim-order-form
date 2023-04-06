@@ -19,7 +19,7 @@ const orderSchema = yup.object().shape({
 interface OrderFormInterface {
   instagramLink: string,
   fullName: string,
-  phonNumber: string,
+  phoneNumber: string,
   address: string
 };
 
@@ -51,7 +51,7 @@ export default function OrderForm() {
     const form = new FormData();
     form.append('instagramLink', data.instagramLink);
     form.append('fullName', data.fullName);
-    form.append('phoneNumber', data.phonNumber);
+    form.append('phoneNumber', data.phoneNumber);
     form.append('address', data.address);
 
     try {
