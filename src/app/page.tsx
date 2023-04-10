@@ -1,4 +1,15 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
+
+export const metadata: Metadata = {
+  title: 'Order Form | Sanica Swim',
+  description: 'Sanica Swim order form.',
+  keywords: ['Sanica', 'Swim', 'Order', 'Form', 'Bikinis', 'Swimwear', 'Beach', 'Vacation'],
+  robots: {
+    index: true,
+    follow: true
+  }
+}
 
 function Home() {
   return (
