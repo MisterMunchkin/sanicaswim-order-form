@@ -7,21 +7,13 @@ import * as yup from "yup";
 import "yup-phone-lite";
 
 import { SizeTypes } from '../../enums/size';
-import { useAppSelector } from "@/hooks";
-import Cart from "../planned/cart/Cart";
+import { OrderFormInterface } from "./order-form";
 
 const orderSchema = yup.object().shape({
   name: yup.string().required(),
   size: yup.mixed<SizeTypes>().oneOf(Object.values(SizeTypes)).required(),
   quantity: yup.number().positive('Must be more than 0').required()
 });
-
-interface OrderFormInterface {
-  instagramLink: string,
-  fullName: string,
-  phoneNumber: string,
-  address: string
-};
 
 const orderFormSchema = yup.object().shape({
   instagramLink: yup.string().url().required("is required"),
@@ -44,20 +36,21 @@ export default function OrderForm() {
     resolver: yupResolver(orderFormSchema)
   });
 
-  const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => {
+  const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
     setSubmitting(true);
     setSubmitError(null);
 
-    const form = new FormData();
-    form.append('instagramLink', data.instagramLink);
-    form.append('fullName', data.fullName);
-    form.append('phoneNumber', data.phoneNumber);
-    form.append('address', data.address);
+    // const form = new FormData();
+    // form.append('instagramLink', data.instagramLink);
+    // form.append('fullName', data.fullName);
+    // form.append('phoneNumber', data.phoneNumber);
+    // form.append('address', data.address);
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch('/api/orders', {
         method: 'POST',
-        body: form
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
       });
 
       if (response.status === 200) {
