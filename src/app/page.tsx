@@ -3,7 +3,7 @@ import Image from 'next/image';
 import backgroundImage from '../../public/gradient-bg.jpeg';
 
 export const metadata: Metadata = {
-  title: 'Order Form | Sanica Swim',
+  title: 'Sanica Swim',
   description: 'Sanica Swim order form.',
   keywords: ['Sanica', 'Swim', 'Order', 'Form', 'Bikinis', 'Swimwear', 'Beach', 'Vacation'],
   robots: {
