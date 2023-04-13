@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import backgroundImage from '../../public/gradient-bg.jpeg';
 
 export const metadata: Metadata = {
   title: 'Order Form | Sanica Swim',
@@ -16,9 +17,10 @@ function Home() {
     <main className='relative flex h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
       <div className='fixed w-screen h-screen top-0 left-0 -z-10 brightness-75'>
         <Image 
-          src='/gradient-bg.jpeg'
+          src={backgroundImage}
           alt='background image'
           sizes='100vw'
+          placeholder='blur'
           fill
           priority
         />
