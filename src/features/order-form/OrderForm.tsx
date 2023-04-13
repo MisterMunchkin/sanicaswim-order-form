@@ -7,20 +7,27 @@ import * as yup from "yup";
 import "yup-phone-lite";
 
 import { SizeTypes } from '../../enums/size';
-import { OrderFormInterface } from "./order-form";
+import { OrderFormInterface } from './order-form';
 
-const orderSchema = yup.object().shape({
-  name: yup.string().required(),
-  size: yup.mixed<SizeTypes>().oneOf(Object.values(SizeTypes)).required(),
-  quantity: yup.number().positive('Must be more than 0').required()
-});
+// const orderSchema = yup.object().shape({
+//   name: yup.string().required(),
+//   size: yup.mixed<SizeTypes>().oneOf(Object.values(SizeTypes)).required(),
+//   quantity: yup.number().positive('Must be more than 0').required()
+// });
 
 const orderFormSchema = yup.object().shape({
   instagramLink: yup.string().url().required("is required"),
   fullName: yup.string().required("is required"),
-  phoneNumber: yup.string().phone("PH", "is innvalid").required("is required"),
+  phoneNumber: yup.string().phone().required("is required"),
   // orders: yup.array().of(yup.string()).min(1).required("Atleast 1 order is required"),
-  address: yup.string().required("is required"),
+  address: yup.object().shape({
+    addressLine1: yup.string().required("is required"),
+    addressLine2: yup.string(),
+    city: yup.string().required("is required"),
+    province: yup.string().required("is required"),
+    country: yup.string().required("is required"),
+    postCode: yup.number().required("is required")
+  }),
 });
 
 export default function OrderForm() {
@@ -39,13 +46,13 @@ export default function OrderForm() {
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
     setSubmitting(true);
     setSubmitError(null);
+    let isValid = await orderFormSchema.isValid(data);
 
-    // const form = new FormData();
-    // form.append('instagramLink', data.instagramLink);
-    // form.append('fullName', data.fullName);
-    // form.append('phoneNumber', data.phoneNumber);
-    // form.append('address', data.address);
-
+    if (!isValid) {
+      setSubmitting(false);
+      console.log('invalid form');
+      return;
+    }
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
