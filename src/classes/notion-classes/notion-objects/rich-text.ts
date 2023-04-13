@@ -43,8 +43,12 @@ export class RichTextObject {
   @JsonProperty()
   href?: string;
 
-  constructor() {
+  constructor();
+  constructor(textContent: string);
+  constructor(textContent?: string) {
     this.text = new TextObject();
     this.annotations = new AnnotationsObject();
+
+    this.text.content = textContent ?? undefined;
   }
 }
