@@ -1,4 +1,4 @@
-import OrderContainer from '@/components/OrderContainer';
+import OrderContainer from '@/features/order-form/OrderContainer';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import backgroundImage from '../../public/gradient-bg.jpeg';

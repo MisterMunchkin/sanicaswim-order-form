@@ -6,8 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "yup-phone-lite";
 
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { OrderFormInterface } from './order-form';
+import { OrderFormInterface } from '../interfaces/order-form';
 
 // const orderSchema = yup.object().shape({
 //   name: yup.string().required(),
@@ -24,8 +23,8 @@ const orderFormSchema = yup.object().shape({
     addressLine1: yup.string().required("is required"),
     addressLine2: yup.string(),
     city: yup.string().required("is required"),
+    barangay: yup.string().required("is required"),
     province: yup.string().required("is required"),
-    country: yup.string().required("is required"),
     postCode: yup.number().required("is required")
   }),
   order: yup.string().required("is required")
@@ -96,7 +95,7 @@ export default function OrderForm() {
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
-                    Instagram Link
+                    Instagram Link <span className="text-red-500">*</span>
                     {errors.instagramLink && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.instagramLink.message === 'string' ? errors.instagramLink.message : 'Invalid input'}</span>
                     )}
@@ -112,7 +111,7 @@ export default function OrderForm() {
 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="fullName">
-                    Full Name
+                    Full Name <span className="text-red-500">*</span>
                     {errors.fullName && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.fullName.message === 'string' ? errors.fullName.message : 'Invalid input'}</span>
                     )}
@@ -127,7 +126,7 @@ export default function OrderForm() {
                 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="phoneNumber">
-                    Phone Number
+                    Phone Number <span className="text-red-500">*</span>
                     {errors.phoneNumber && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.phoneNumber.message === 'string' ? errors.phoneNumber.message : 'Invalid input'}</span>
                     )}
@@ -137,20 +136,6 @@ export default function OrderForm() {
                     id="phoneNumber"
                     className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
                     {...register("phoneNumber")}
-                  />
-                </div>
-                <div className="col-span-3">
-                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address-line1">
-                    Street Address
-                    {errors.address && errors.address.addressLine1 && (
-                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.addressLine1.message === 'string' ? errors.address.addressLine1.message : 'Invalid input'}</span>
-                    )}
-                  </label>
-                  <input
-                    type="text"
-                    id="address-line1"
-                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    {...register("address.addressLine1")}
                   />
                 </div>
 
@@ -170,8 +155,38 @@ export default function OrderForm() {
                 </div>
 
                 <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address-line1">
+                    Street Address <span className="text-red-500">*</span>
+                    {errors.address && errors.address.addressLine1 && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.addressLine1.message === 'string' ? errors.address.addressLine1.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="address-line1"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.addressLine1")}
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="barangay">
+                    Barangay <span className="text-red-500">*</span>
+                    {errors.address && errors.address.barangay && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.barangay.message === 'string' ? errors.address.barangay.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="barangay"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.barangay")}
+                  />
+                </div>
+
+                <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="city">
-                    City
+                    City <span className="text-red-500">*</span>
                     {errors.address && errors.address.city && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.address.city.message === 'string' ? errors.address.city.message : 'Invalid input'}</span>
                     )}
@@ -186,7 +201,7 @@ export default function OrderForm() {
 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="province">
-                    Province
+                    Province <span className="text-red-500">*</span>
                     {errors.address && errors.address.province && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.address.province.message === 'string' ? errors.address.province.message : 'Invalid input'}</span>
                     )}
@@ -200,23 +215,8 @@ export default function OrderForm() {
                 </div>
 
                 <div className="col-span-3">
-                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="country">
-                    Country
-                    {errors.address && errors.address.country && (
-                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.country.message === 'string' ? errors.address.country.message : 'Invalid input'}</span>
-                    )}
-                  </label>
-                  <input
-                    type="text"
-                    id="country"
-                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    {...register("address.country")}
-                  />
-                </div>
-
-                <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="postcode">
-                    Post Code
+                    Zip Code <span className="text-red-500">*</span>
                     {errors.address && errors.address.postCode && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.address.postCode.message === 'string' ? errors.address.postCode.message : 'Invalid input'}</span>
                     )}
@@ -231,7 +231,7 @@ export default function OrderForm() {
 
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="order">
-                      Orders
+                      Orders <span className="text-red-500">*</span>
                     {errors.order && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.order.message === 'string' ? errors.order.message : 'Invalid input'}</span>
                     )}
@@ -240,7 +240,7 @@ export default function OrderForm() {
                     id="order"
                     rows={3}
                     className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    placeholder="1 x S - Parakeet Monokini"
+                    placeholder="Format: 1 x S - Parakeet Monokini"
                     {...register("order")}
                   ></textarea>
                 </div>

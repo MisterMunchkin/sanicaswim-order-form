@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { notion } from "@/notion";
-import { OrderFormInterface } from "@/features/order-form/order-form";
+import { OrderFormInterface } from "@/interfaces/order-form";
 import { RouteApiError } from "@/classes/route-api-error";
 import { NotionOrderPageRequest } from "@/classes/notion-classes/notion-order-page-request";
 import { JsonSerializer } from "typescript-json-serializer";

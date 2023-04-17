@@ -13,7 +13,7 @@
 //     </Provider>
 //   )
 // }
-import OrderForm from "@/features/order-form/OrderForm";
+import OrderForm from "@/components/OrderForm";
 
 export default function OrderContainer() {
   return (

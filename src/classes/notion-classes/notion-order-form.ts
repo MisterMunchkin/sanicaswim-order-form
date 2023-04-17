@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "typescript-json-serializer";
 import { NotionProperty } from '@/classes/notion-classes/notion-property';
-import type { OrderFormInterface } from "@/features/order-form/order-form";
+import type { OrderFormInterface } from "@/interfaces/order-form";
 import { RichTextObject } from '@/classes/notion-classes/notion-objects/rich-text';
 
 @JsonObject()

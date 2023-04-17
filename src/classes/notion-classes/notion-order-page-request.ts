@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from 'typescript-json-serializer';
-import type { OrderFormInterface } from '../../features/order-form/order-form';
+import type { OrderFormInterface } from '../../interfaces/order-form';
 import { NotionParent } from '@/classes/notion-classes/notion-parent';
 import { NotionOrderForm } from './notion-order-form';
 
