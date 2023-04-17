@@ -2,7 +2,8 @@ export interface OrderFormInterface {
   instagramLink: string,
   fullName: string,
   phoneNumber: string,
-  address: string
+  address: AddressInterface,
+  order: string
 };
   
 export interface AddressInterface {

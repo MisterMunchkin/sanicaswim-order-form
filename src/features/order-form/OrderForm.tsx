@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "yup-phone-lite";
 
-import { SizeTypes } from '../../enums/size';
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { OrderFormInterface } from './order-form';
 
 // const orderSchema = yup.object().shape({
@@ -18,7 +18,7 @@ import { OrderFormInterface } from './order-form';
 const orderFormSchema = yup.object().shape({
   instagramLink: yup.string().url().required("is required"),
   fullName: yup.string().required("is required"),
-  phoneNumber: yup.string().phone().required("is required"),
+  phoneNumber: yup.string().phone("PH").required("is required"),
   // orders: yup.array().of(yup.string()).min(1).required("Atleast 1 order is required"),
   address: yup.object().shape({
     addressLine1: yup.string().required("is required"),
@@ -28,6 +28,7 @@ const orderFormSchema = yup.object().shape({
     country: yup.string().required("is required"),
     postCode: yup.number().required("is required")
   }),
+  order: yup.string().required("is required")
 });
 
 export default function OrderForm() {
@@ -44,6 +45,7 @@ export default function OrderForm() {
   });
 
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
+    debugger;
     setSubmitting(true);
     setSubmitError(null);
     let isValid = await orderFormSchema.isValid(data);
@@ -53,18 +55,20 @@ export default function OrderForm() {
       console.log('invalid form');
       return;
     }
+    
     try {
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
+      console.log(data);
+      // const response = await fetch('/api/orders', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json'},
+      //   body: JSON.stringify(data)
+      // });
 
-      if (response.status === 200) {
-        console.log('Form submitted');
-      } else {
-        console.error('Form failed.');
-      }
+      // if (response.status === 200) {
+      //   console.log('Form submitted');
+      // } else {
+      //   console.error('Form failed.');
+      // }
       
       setSubmitSuccess(true);
     } catch (error: any) {
@@ -101,7 +105,6 @@ export default function OrderForm() {
                     type="text"
                     id="instagramLink"
                     className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    placeholder="Enter Instagram link"
                     {...register("instagramLink")}
                   />
                   
@@ -118,7 +121,6 @@ export default function OrderForm() {
                     type="text"
                     id="fullName"
                     className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    placeholder="Enter Full name"
                     {...register("fullName")}
                   />
                 </div>
@@ -134,27 +136,114 @@ export default function OrderForm() {
                     type="text"
                     id="phoneNumber"
                     className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    placeholder="Enter Phone Number"
                     {...register("phoneNumber")}
+                  />
+                </div>
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address-line1">
+                    Street Address
+                    {errors.address && errors.address.addressLine1 && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.addressLine1.message === 'string' ? errors.address.addressLine1.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="address-line1"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.addressLine1")}
                   />
                 </div>
 
                 <div className="col-span-3">
-                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address">
-                    Address
-                    {errors.address && (
-                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.message === 'string' ? errors.address.message : 'Invalid input'}</span>
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="address-line2">
+                    Apt, Suite, Floor, Building, etc.
+                    {errors.address && errors.address.addressLine2 && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.addressLine2.message === 'string' ? errors.address.addressLine2.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="address-line2"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.addressLine2")}
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="city">
+                    City
+                    {errors.address && errors.address.city && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.city.message === 'string' ? errors.address.city.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="city"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.city")}
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="province">
+                    Province
+                    {errors.address && errors.address.province && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.province.message === 'string' ? errors.address.province.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="province"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.province")}
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="country">
+                    Country
+                    {errors.address && errors.address.country && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.country.message === 'string' ? errors.address.country.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="country"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.country")}
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="postcode">
+                    Post Code
+                    {errors.address && errors.address.postCode && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.address.postCode.message === 'string' ? errors.address.postCode.message : 'Invalid input'}</span>
+                    )}
+                  </label>
+                  <input
+                    type="number"
+                    id="country"
+                    className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                    {...register("address.postCode")}
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="order">
+                      Orders
+                    {errors.order && (
+                      <span className="text-red-500 mt-1 pl-1">{typeof errors.order.message === 'string' ? errors.order.message : 'Invalid input'}</span>
                     )}
                   </label>
                   <textarea
-                    id="address"
+                    id="order"
                     rows={3}
                     className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    placeholder="Enter delivery address"
-                    {...register("address")}
+                    placeholder="1 x S - Parakeet Monokini"
+                    {...register("order")}
                   ></textarea>
                 </div>
-                
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
