@@ -57,17 +57,17 @@ export default function OrderForm() {
     
     try {
       console.log(data);
-      // const response = await fetch('/api/orders', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json'},
-      //   body: JSON.stringify(data)
-      // });
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
 
-      // if (response.status === 200) {
-      //   console.log('Form submitted');
-      // } else {
-      //   console.error('Form failed.');
-      // }
+      if (response.status === 200) {
+        console.log('Form submitted');
+      } else {
+        console.error('Form failed.');
+      }
       
       setSubmitSuccess(true);
     } catch (error: any) {
