@@ -7,6 +7,7 @@ import * as yup from "yup";
 import "yup-phone-lite";
 
 import { OrderFormInterface } from '../interfaces/order-form';
+import LoadingSpinner from "./LoadingSpinner";
 
 // const orderSchema = yup.object().shape({
 //   name: yup.string().required(),
@@ -47,13 +48,6 @@ export default function OrderForm() {
     debugger;
     setSubmitting(true);
     setSubmitError(null);
-    let isValid = await orderFormSchema.isValid(data);
-
-    if (!isValid) {
-      setSubmitting(false);
-      console.log('invalid form');
-      return;
-    }
     
     try {
       console.log(data);
@@ -247,9 +241,15 @@ export default function OrderForm() {
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
-                    className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue"
+                    disabled={submitting}
+                    className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
                   >
                     Submit
+                    {submitting && (
+                      <div className="pl-2">
+                        <LoadingSpinner />
+                      </div>
+                    )}
                   </button>
                 </div>
               </div>
