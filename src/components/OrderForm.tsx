@@ -8,27 +8,53 @@ import "yup-phone-lite";
 
 import { OrderFormInterface } from '../interfaces/order-form';
 import LoadingSpinner from "./LoadingSpinner";
+import { NextResponse } from "next/server";
+import { RouteApiError } from "@/classes/route-api-error";
 
-// const orderSchema = yup.object().shape({
-//   name: yup.string().required(),
-//   size: yup.mixed<SizeTypes>().oneOf(Object.values(SizeTypes)).required(),
-//   quantity: yup.number().positive('Must be more than 0').required()
-// });
+const TEST_VALUES: OrderFormInterface = {
+  instagramLink: 'https://www.instagram.com/robindalmy/',
+  fullName: 'Robin Tubungbanua',
+  phoneNumber: '09190011652',
+  address: {
+    addressLine1: 'A4J Pacific Square Residences',
+    addressLine2: 'F. Cabahug St.',
+    barangay: 'Mabolo',
+    city: 'Cebu',
+    province: 'Cebu',
+    postCode: 6000
+  },
+  order: '1 x S - Parakeet Monokini'
+};
+
+const DEFAULT_VALUES = {
+  instagramLink: undefined,
+  fullName: undefined,
+  phoneNumber: undefined,
+  address: {
+    addressLine1: undefined,
+    addressLine2: undefined,
+    barangay: undefined,
+    city: undefined,
+    province: undefined,
+    postCode:undefined,
+  },
+  order: undefined
+}
 
 const orderFormSchema = yup.object().shape({
-  instagramLink: yup.string().url().required("is required"),
-  fullName: yup.string().required("is required"),
-  phoneNumber: yup.string().phone("PH").required("is required"),
+  instagramLink: yup.string().url().required("required"),
+  fullName: yup.string().required("required"),
+  phoneNumber: yup.string().phone("PH").required("required"),
   // orders: yup.array().of(yup.string()).min(1).required("Atleast 1 order is required"),
   address: yup.object().shape({
-    addressLine1: yup.string().required("is required"),
+    addressLine1: yup.string().required("required"),
     addressLine2: yup.string(),
-    city: yup.string().required("is required"),
-    barangay: yup.string().required("is required"),
-    province: yup.string().required("is required"),
-    postCode: yup.number().required("is required")
+    city: yup.string().required("required"),
+    barangay: yup.string().required("required"),
+    province: yup.string().required("required"),
+    postCode: yup.number().typeError("required and must be a number").positive("Must be a valid Post Code")
   }),
-  order: yup.string().required("is required")
+  order: yup.string().required("required")
 });
 
 export default function OrderForm() {
@@ -40,8 +66,9 @@ export default function OrderForm() {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<OrderFormInterface>({
-    resolver: yupResolver(orderFormSchema)
+    resolver: yupResolver(orderFormSchema),
   });
 
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
@@ -50,25 +77,29 @@ export default function OrderForm() {
     setSubmitError(null);
     
     try {
-      console.log(data);
       const response = await fetch('/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-      });
+      }) as NextResponse;
 
-      if (response.status === 200) {
-        console.log('Form submitted');
-      } else {
-        console.error('Form failed.');
-      }
-      
+      if (response.status !== 200) {
+        let body = await response.json();
+        console.error(body);
+        throw new Error(body);
+      } 
+
       setSubmitSuccess(true);
+      reset(DEFAULT_VALUES);
     } catch (error: any) {
       setSubmitError(error);
+    } finally {
+      setSubmitting(false);
     }
+  }
 
-    setSubmitting(false);
+  const populateForm = () => {
+    reset(TEST_VALUES);
   }
 
   return (
@@ -256,6 +287,13 @@ export default function OrderForm() {
             </div>
           </div>
         </form>
+        <button
+          type="submit"
+          className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
+          onClick={populateForm}
+        >
+          Populate Form
+        </button>
       </div>
     </div>
   )
