@@ -10,6 +10,8 @@ import { OrderFormInterface } from '../interfaces/order-form';
 import LoadingSpinner from "./LoadingSpinner";
 import { NextResponse } from "next/server";
 import { RouteApiError } from "@/classes/route-api-error";
+import OrderSuccessModal from "./OrderSuccessModal";
+import OrderFailedModal from "./OrderFailedModal";
 
 const TEST_VALUES: OrderFormInterface = {
   instagramLink: 'https://www.instagram.com/robindalmy/',
@@ -62,8 +64,8 @@ const orderFormSchema = yup.object().shape({
 
 export default function OrderForm() {
   const [submitting, setSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
+  const [isFailedDialogOpen, setIsFailedDialogOpen] = useState(false);
+  const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
 
   const {
     register,
@@ -76,25 +78,24 @@ export default function OrderForm() {
 
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
     setSubmitting(true);
-    setSubmitError(null);
     
     try {
-      // const response = await fetch('/api/orders', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data)
-      // }) as NextResponse;
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }) as NextResponse;
 
-      // if (response.status !== 200) {
-      //   let body = await response.json();
-      //   console.error(body);
-      //   throw new Error(body);
-      // } 
+      if (response.status !== 200) {
+        let body = await response.json();
+        console.error(body);
+        throw new Error(body);
+      } 
 
-      setSubmitSuccess(true);
+      setIsSuccessDialogOpen(true);
       reset(DEFAULT_VALUES);
     } catch (error: any) {
-      setSubmitError(error);
+      setIsFailedDialogOpen(true);
     } finally {
       setSubmitting(false);
     }
@@ -296,6 +297,8 @@ export default function OrderForm() {
         >
           Populate Form
         </button>
+        <OrderSuccessModal isOpen={isSuccessDialogOpen} setIsOpen={setIsSuccessDialogOpen}></OrderSuccessModal>
+        <OrderFailedModal isOpen={isFailedDialogOpen} setIsOpen={setIsFailedDialogOpen}></OrderFailedModal>
       </div>
     </div>
   )
