@@ -9,24 +9,23 @@ import "yup-phone-lite";
 import { OrderFormInterface } from '../interfaces/order-form';
 import LoadingSpinner from "./LoadingSpinner";
 import { NextResponse } from "next/server";
-import { RouteApiError } from "@/classes/route-api-error";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
 
-const TEST_VALUES: OrderFormInterface = {
-  instagramLink: 'https://www.instagram.com/robindalmy/',
-  fullName: 'Robin Tubungbanua',
-  phoneNumber: '09190011652',
-  address: {
-    addressLine1: 'A4J Pacific Square Residences',
-    addressLine2: 'F. Cabahug St.',
-    barangay: 'Mabolo',
-    city: 'Cebu',
-    province: 'Cebu',
-    postCode: 6000
-  },
-  order: '1 x S - Parakeet Monokini'
-};
+// const TEST_VALUES: OrderFormInterface = {
+//   instagramLink: 'https://www.instagram.com/robindalmy/',
+//   fullName: 'Robin Tubungbanua',
+//   phoneNumber: '09190011652',
+//   address: {
+//     addressLine1: 'A4J Pacific Square Residences',
+//     addressLine2: 'F. Cabahug St.',
+//     barangay: 'Mabolo',
+//     city: 'Cebu',
+//     province: 'Cebu',
+//     postCode: 6000
+//   },
+//   order: '1 x S - Parakeet Monokini'
+// };
 
 const DEFAULT_VALUES: OrderFormInterface = {
   instagramLink: '',
@@ -290,13 +289,13 @@ export default function OrderForm() {
             </div>
           </div>
         </form>
-        <button
+        {/* <button
           type="submit"
           className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
           onClick={populateForm}
         >
           Populate Form
-        </button>
+        </button> */}
         <OrderSuccessModal isOpen={isSuccessDialogOpen} setIsOpen={setIsSuccessDialogOpen}></OrderSuccessModal>
         <OrderFailedModal isOpen={isFailedDialogOpen} setIsOpen={setIsFailedDialogOpen}></OrderFailedModal>
       </div>
