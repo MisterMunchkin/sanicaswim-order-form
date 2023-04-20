@@ -26,19 +26,19 @@ const TEST_VALUES: OrderFormInterface = {
   order: '1 x S - Parakeet Monokini'
 };
 
-const DEFAULT_VALUES = {
-  instagramLink: undefined,
-  fullName: undefined,
-  phoneNumber: undefined,
+const DEFAULT_VALUES: OrderFormInterface = {
+  instagramLink: '',
+  fullName: '',
+  phoneNumber: '',
   address: {
-    addressLine1: undefined,
-    addressLine2: undefined,
-    barangay: undefined,
-    city: undefined,
-    province: undefined,
-    postCode:undefined,
+    addressLine1: '',
+    addressLine2: '',
+    barangay: '',
+    city: '',
+    province: '',
+    postCode: 0,
   },
-  order: undefined
+  order: ''
 }
 
 const orderFormSchema = yup.object().shape({
@@ -57,6 +57,9 @@ const orderFormSchema = yup.object().shape({
   order: yup.string().required("required")
 });
 
+//Use dialog modal for order submission success, "Order submitted, please wait for confirmation from @SanicaSwim"
+//Okay button
+
 export default function OrderForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -72,22 +75,21 @@ export default function OrderForm() {
   });
 
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
-    debugger;
     setSubmitting(true);
     setSubmitError(null);
     
     try {
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }) as NextResponse;
+      // const response = await fetch('/api/orders', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // }) as NextResponse;
 
-      if (response.status !== 200) {
-        let body = await response.json();
-        console.error(body);
-        throw new Error(body);
-      } 
+      // if (response.status !== 200) {
+      //   let body = await response.json();
+      //   console.error(body);
+      //   throw new Error(body);
+      // } 
 
       setSubmitSuccess(true);
       reset(DEFAULT_VALUES);
