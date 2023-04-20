@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Dispatch, Fragment, useState } from "react";
+import { Dispatch, Fragment } from "react";
 
 interface OrderSuccessModalProps {
   isOpen: boolean;
