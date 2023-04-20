@@ -100,9 +100,9 @@ export default function OrderForm() {
     }
   }
 
-  const populateForm = () => {
-    reset(TEST_VALUES);
-  }
+  // const populateForm = () => {
+  //   reset(TEST_VALUES);
+  // }
 
   return (
     <div className="max-w-md w-full">
@@ -117,8 +117,8 @@ export default function OrderForm() {
         >
           <input type="hidden" name="form-name" value="order-form"/>
           <input type="hidden" name="bot-field" />
-          <div className="overflow-hidden drop-shadow rounded-md">
-            <div className="bg-white px-4 py-5 sm:p-6">
+          <div className="overflow-hidden drop-shadow rounded-[2rem]">
+            <div className="bg-white px-4 py-8">
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
@@ -275,7 +275,7 @@ export default function OrderForm() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
+                    className="inline-flex justify-center w-full py-2 px-3 rounded-full bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
                   >
                     Submit
                     {submitting && (
