@@ -4,5 +4,5 @@ export interface AddressFormInterface {
   city: string;
   province: string; //state, provice
   barangay: string;
-  postCode: number;
+  postCode: string;
 }

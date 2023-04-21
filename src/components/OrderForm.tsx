@@ -22,7 +22,7 @@ import OrderFailedModal from "./OrderFailedModal";
 //     barangay: 'Mabolo',
 //     city: 'Cebu',
 //     province: 'Cebu',
-//     postCode: 6000
+//     postCode: '6000'
 //   },
 //   order: '1 x S - Parakeet Monokini'
 // };
@@ -37,7 +37,7 @@ const DEFAULT_VALUES: OrderFormInterface = {
     barangay: '',
     city: '',
     province: '',
-    postCode: 0,
+    postCode: '',
   },
   order: ''
 }
@@ -53,7 +53,9 @@ const orderFormSchema = yup.object().shape({
     city: yup.string().required("required"),
     barangay: yup.string().required("required"),
     province: yup.string().required("required"),
-    postCode: yup.number().typeError("required and must be a number").positive("Must be a valid Post Code")
+    postCode: yup.string().required("required")
+    .matches(/^[0-9]+$/, "enter a valid Post Code")
+    .test("len", "Must be exactly 4 numbers", val => val.length === 4)
   }),
   order: yup.string().required("required")
 });
@@ -249,8 +251,8 @@ export default function OrderForm() {
                     )}
                   </label>
                   <input
-                    type="number"
-                    id="country"
+                    type="text"
+                    id="postcode"
                     className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
                     {...register("address.postCode")}
                   />
