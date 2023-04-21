@@ -43,7 +43,8 @@ const DEFAULT_VALUES: OrderFormInterface = {
 }
 
 const orderFormSchema = yup.object().shape({
-  instagramLink: yup.string().url().required("required"),
+  instagramLink: yup.string().url("enter a valid Instagram account link").required("required")
+  .matches(/^https?:\/\/(www\.)?instagram\.com\/([a-zA-Z0-9](?:[a-zA-Z0-9._]*[a-zA-Z0-9])?)\/?$/, "enter a valid Instagram account link"),
   fullName: yup.string().required("required"),
   phoneNumber: yup.string().phone("PH").required("required"),
   // orders: yup.array().of(yup.string()).min(1).required("Atleast 1 order is required"),
