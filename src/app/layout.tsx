@@ -1,11 +1,6 @@
 import '@/styles/globals.css';
 import { Montserrat } from 'next/font/google';
 
-export const metadata = {
-  title: 'Sanica Swim Order Form',
-  description: 'Order your bikinies now!',
-}
-
 const montserrat = Montserrat({ 
   variable: '--font-montserrat',
   subsets: ['latin'],
