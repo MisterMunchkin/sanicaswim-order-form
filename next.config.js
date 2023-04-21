@@ -3,7 +3,7 @@ const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline';
   font-src 'self' cdn.jsdelivr.net fonts.gstatic.com;
-  img-src 'self' blob:;
+  img-src 'self' blob: data:;
   style-src 'self' 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com;
   connect-src 'self' api.notion.com/v1/;
 `
