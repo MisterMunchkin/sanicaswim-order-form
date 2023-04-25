@@ -135,6 +135,7 @@ export default function OrderForm() {
 
           <div className="overflow-hidden drop-shadow rounded-[2rem]">
             <div className="bg-white px-4 py-8">
+              <h2 className='text-center text-3xl font-bold tracking-tight pb-8 text-ss-blue'>Order Form</h2>
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
