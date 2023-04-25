@@ -5,5 +5,6 @@ export interface OrderFormInterface {
   fullName: string,
   phoneNumber: string,
   address: AddressFormInterface,
-  order: string
+  order: string,
+  honeyPotEmail?: string
 };

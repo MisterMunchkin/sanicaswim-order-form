@@ -39,7 +39,8 @@ const DEFAULT_VALUES: OrderFormInterface = {
     province: '',
     postCode: '',
   },
-  order: ''
+  order: '',
+  honeyPotEmail: ''
 }
 
 const orderFormSchema = yup.object().shape({
@@ -58,7 +59,8 @@ const orderFormSchema = yup.object().shape({
     .matches(/^[0-9]+$/, "enter a valid Post Code")
     .test("len", "Must be exactly 4 numbers", val => val.length === 4)
   }),
-  order: yup.string().required("required")
+  order: yup.string().required("required"),
+  honeyPotEmail: yup.string()
 });
 
 //Use dialog modal for order submission success, "Order submitted, please wait for confirmation from @SanicaSwim"
@@ -81,7 +83,13 @@ export default function OrderForm() {
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
     setSubmitting(true);
     
+    
     try {
+      if (data.honeyPotEmail) {
+        const stringData = JSON.stringify(data);
+        throw new Error(`Caught a bot. ${stringData}`);
+      }
+
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -112,14 +120,19 @@ export default function OrderForm() {
       <div className='mt-5 md:col-span-2 md:mt-0'>
         <form 
           onSubmit={handleSubmit(onSubmit)} 
-          action="/"
           name="order-form" 
-          method="POST" 
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
         >
-          <input type="hidden" name="form-name" value="order-form"/>
-          <input type="hidden" name="bot-field" />
+          {/* This is for the bot */}
+          <div className="hidden">
+            <label htmlFor="honeyPotEmail">Email</label>
+            <input 
+              id="honeyPotEmail" 
+              type="email" 
+              autoComplete="off" 
+              {...register("honeyPotEmail")}
+            />
+          </div>
+
           <div className="overflow-hidden drop-shadow rounded-[2rem]">
             <div className="bg-white px-4 py-8">
               <div className="grid grid-cols-3 gap-6">
