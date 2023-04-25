@@ -24,7 +24,6 @@ function Home() {
           sizes='100vw'
           placeholder='blur'
           fill
-          priority
         />
       </div>
       <div className="w-full space-y-8">
@@ -35,6 +34,7 @@ function Home() {
               alt='logo image'
               width={200}
               height={80}
+              priority
             />
           </div>
           <p className='text-center text-sm leading-6'>
