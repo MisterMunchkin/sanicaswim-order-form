@@ -43,7 +43,7 @@ const orderFormSchema = yup.object().shape({
     barangay: yup.string().required("required"),
     province: yup.string().required("required"),
     postCode: yup.string().required("required")
-    .matches(/^[0-9]+$/, "enter a valid Post Code")
+    .matches(/^[0-9]+$/, "enter a valid post code")
     .test("len", "Must be exactly 4 numbers", val => val.length === 4)
   }),
   order: yup.string().required("required"),
@@ -119,7 +119,7 @@ export default function OrderForm() {
 
           <div className="overflow-hidden drop-shadow rounded-[2rem]">
             <div className="bg-white px-4 py-8">
-              <h2 className='text-center text-3xl font-bold tracking-tight pb-8 text-ss-blue'>Order Form</h2>
+              <h2 className='text-center text-3xl font-bold tracking-tight pb-8 text-ss-blue'>Order Form 💌</h2>
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
@@ -129,7 +129,7 @@ export default function OrderForm() {
                     )}
                   </label>
                   <div className="flex items-baseline">
-                    <span className="bg-gray-300 text-gray-600 rounded-l-md text-sm py-2 px-1 grow-0">{INSTAGRAM_BASEURL}</span>
+                    <span className="mt-2 bg-gray-300 text-gray-600 rounded-l-md text-sm py-2 px-1 grow-0">{INSTAGRAM_BASEURL}</span>
                     <input
                       type="text"
                       id="instagramLink"

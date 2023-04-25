@@ -33,7 +33,6 @@ function Home() {
               src={logoImage}
               alt='logo image'
               width={200}
-              height={80}
               priority
             />
           </div>
