@@ -12,21 +12,6 @@ import { NextResponse } from "next/server";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
 
-// const TEST_VALUES: OrderFormInterface = {
-//   instagramLink: 'https://www.instagram.com/robindalmy/',
-//   fullName: 'Robin Tubungbanua',
-//   phoneNumber: '09190011652',
-//   address: {
-//     addressLine1: 'A4J Pacific Square Residences',
-//     addressLine2: 'F. Cabahug St.',
-//     barangay: 'Mabolo',
-//     city: 'Cebu',
-//     province: 'Cebu',
-//     postCode: '6000'
-//   },
-//   order: '1 x S - Parakeet Monokini'
-// };
-
 const DEFAULT_VALUES: OrderFormInterface = {
   instagramLink: '',
   fullName: '',
@@ -83,7 +68,6 @@ export default function OrderForm() {
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
     setSubmitting(true);
     
-    
     try {
       if (data.honeyPotEmail) {
         const stringData = JSON.stringify(data);
@@ -110,10 +94,6 @@ export default function OrderForm() {
       setSubmitting(false);
     }
   }
-
-  // const populateForm = () => {
-  //   reset(TEST_VALUES);
-  // }
 
   return (
     <div className="max-w-md w-full">
@@ -306,13 +286,6 @@ export default function OrderForm() {
             </div>
           </div>
         </form>
-        {/* <button
-          type="submit"
-          className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
-          onClick={populateForm}
-        >
-          Populate Form
-        </button> */}
         <OrderSuccessModal isOpen={isSuccessDialogOpen} setIsOpen={setIsSuccessDialogOpen}></OrderSuccessModal>
         <OrderFailedModal isOpen={isFailedDialogOpen} setIsOpen={setIsFailedDialogOpen}></OrderFailedModal>
       </div>
