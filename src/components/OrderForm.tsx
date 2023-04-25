@@ -12,20 +12,7 @@ import { NextResponse } from "next/server";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
 
-// const TEST_VALUES: OrderFormInterface = {
-//   instagramLink: 'https://www.instagram.com/robindalmy/',
-//   fullName: 'Robin Tubungbanua',
-//   phoneNumber: '09190011652',
-//   address: {
-//     addressLine1: 'A4J Pacific Square Residences',
-//     addressLine2: 'F. Cabahug St.',
-//     barangay: 'Mabolo',
-//     city: 'Cebu',
-//     province: 'Cebu',
-//     postCode: '6000'
-//   },
-//   order: '1 x S - Parakeet Monokini'
-// };
+const INSTAGRAM_BASEURL = "https://www.instagram.com/";
 
 const DEFAULT_VALUES: OrderFormInterface = {
   instagramLink: '',
@@ -44,10 +31,10 @@ const DEFAULT_VALUES: OrderFormInterface = {
 }
 
 const orderFormSchema = yup.object().shape({
-  instagramLink: yup.string().url("enter a valid Instagram account link").required("required")
-  .matches(/^https?:\/\/(www\.)?instagram\.com\/([a-zA-Z0-9](?:[a-zA-Z0-9._]*[a-zA-Z0-9])?)\/?$/, "enter a valid Instagram account link"),
+  instagramLink: yup.string().required("required")
+  .matches(/^[\w](?!.*?\.{2})[\w.]{1,28}[\w]$/, "enter a valid Instagram account"),
   fullName: yup.string().required("required"),
-  phoneNumber: yup.string().phone("PH").required("required"),
+  phoneNumber: yup.string().phone("PH", "Must be a valid Philippine phone number").required("required"),
   // orders: yup.array().of(yup.string()).min(1).required("Atleast 1 order is required"),
   address: yup.object().shape({
     addressLine1: yup.string().required("required"),
@@ -83,12 +70,13 @@ export default function OrderForm() {
   const onSubmit: SubmitHandler<OrderFormInterface> = async (data) => { //This whole method should be a utility function in another folder.
     setSubmitting(true);
     
-    
     try {
       if (data.honeyPotEmail) {
         const stringData = JSON.stringify(data);
         throw new Error(`Caught a bot. ${stringData}`);
       }
+      //To send the full instagram account link in the back end
+      data.instagramLink = INSTAGRAM_BASEURL + data.instagramLink;
 
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -110,10 +98,6 @@ export default function OrderForm() {
       setSubmitting(false);
     }
   }
-
-  // const populateForm = () => {
-  //   reset(TEST_VALUES);
-  // }
 
   return (
     <div className="max-w-md w-full">
@@ -144,13 +128,16 @@ export default function OrderForm() {
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.instagramLink.message === 'string' ? errors.instagramLink.message : 'Invalid input'}</span>
                     )}
                   </label>
-                  <input
-                    type="text"
-                    id="instagramLink"
-                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 drop-shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
-                    {...register("instagramLink")}
-                  />
-                  
+                  <div className="flex items-baseline">
+                    <span className="bg-gray-300 text-gray-600 rounded-l-md text-sm py-2 px-1 grow-0">{INSTAGRAM_BASEURL}</span>
+                    <input
+                      type="text"
+                      id="instagramLink"
+                      className="mt-2 block w-full rounded-r-md border-0 py-1.5 text-gray-900 drop-shadow-sm grow ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ss-pink sm:text-sm sm:leading-6"
+                      placeholder="username"
+                      {...register("instagramLink")}
+                    />
+                  </div>
                 </div>
 
                 <div className="col-span-3">
@@ -306,13 +293,6 @@ export default function OrderForm() {
             </div>
           </div>
         </form>
-        {/* <button
-          type="submit"
-          className="inline-flex justify-center w-full py-2 px-3 rounded-md bg-ss-blue text-sm font-semibold text-ss-pink drop-shadow-sm hover:bg-ss-pink hover:text-ss-blue disabled:opacity-75 disabled:hover:bg-ss-blue disabled:hover:text-ss-pink"
-          onClick={populateForm}
-        >
-          Populate Form
-        </button> */}
         <OrderSuccessModal isOpen={isSuccessDialogOpen} setIsOpen={setIsSuccessDialogOpen}></OrderSuccessModal>
         <OrderFailedModal isOpen={isFailedDialogOpen} setIsOpen={setIsFailedDialogOpen}></OrderFailedModal>
       </div>
