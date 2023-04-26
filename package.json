@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.16",
+    "@heroicons/react": "^2.0.17",
     "@hookform/resolvers": "^2.9.11",
     "@notionhq/client": "^2.2.3",
     "@reduxjs/toolkit": "^1.9.3",
