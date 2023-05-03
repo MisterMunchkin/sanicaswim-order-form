@@ -11,8 +11,9 @@ import LoadingSpinner from "./LoadingSpinner";
 import { NextResponse } from "next/server";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
-import { RadioGroup } from "@headlessui/react";
 import RadioOptions from "./RadioOptions";
+
+import { orderTypes } from "@/data/ordertype-list.js";
 
 const INSTAGRAM_BASEURL = "https://www.instagram.com/";
 
@@ -282,7 +283,7 @@ export default function OrderForm() {
                 <div className="col-span-3">
                   <RadioOptions
                     label="Order Type"
-                    options={['Order', 'Pre Order']}
+                    options={orderTypes}
                     handleUpdatedSelection={(selection) => {console.log(selection)}}
                   />
                 </div>
