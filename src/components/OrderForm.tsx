@@ -11,6 +11,8 @@ import LoadingSpinner from "./LoadingSpinner";
 import { NextResponse } from "next/server";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
+import { RadioGroup } from "@headlessui/react";
+import RadioOptions from "./RadioOptions";
 
 const INSTAGRAM_BASEURL = "https://www.instagram.com/";
 
@@ -27,6 +29,7 @@ const DEFAULT_VALUES: OrderFormInterface = {
     postCode: '',
   },
   order: '',
+  orderType: 'Order',
   honeyPotEmail: ''
 }
 
@@ -275,6 +278,15 @@ export default function OrderForm() {
                     {...register("order")}
                   ></textarea>
                 </div>
+
+                <div className="col-span-3">
+                  <RadioOptions
+                    label="Order Type"
+                    options={['Order', 'Pre Order']}
+                    handleUpdatedSelection={(selection) => {console.log(selection)}}
+                  />
+                </div>
+
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
