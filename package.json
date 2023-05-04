@@ -24,7 +24,7 @@
     "sharp": "^0.32.0",
     "swr": "^2.1.0",
     "typescript-json-serializer": "^6.0.0",
-    "yup": "^1.0.2",
+    "yup": "^1.1.0",
     "yup-phone-lite": "^2.0.1"
   },
   "devDependencies": {
