@@ -1,21 +1,26 @@
 import { useState } from "react";
 import { RadioGroup } from '@headlessui/react';
 import { CheckBadgeIcon } from "@heroicons/react/24/outline";
+import { OrderTypeName, OrderTypeRadioInterface } from "@/interfaces/order-type-radio";
 
 interface RadioOptionsProps {
   label: string;
-  options: Array<{name: string, description?: string}>;
-  handleUpdatedSelection: (updatedSelection: string) => void;
+  options: Array<OrderTypeRadioInterface>;
+  handleUpdatedSelection: (updatedSelection: OrderTypeName) => void;
 }
 
 export default function RadioOptions({label, options, handleUpdatedSelection}: RadioOptionsProps) {
   const [selected, setSelected] = useState(options[0].name);
 
-  
+  const updateSelection = (selection: OrderTypeName) => {
+    setSelected(selection);
+    handleUpdatedSelection(selection);
+  }
+
   return (
       <>
         {label && options && options.length > 0 && (
-          <RadioGroup value={selected} onChange={setSelected}
+          <RadioGroup value={selected} onChange={updateSelection}
             id="order-type"
           >
             <RadioGroup.Label className="block text-sm font-medium leading-6 text-gray-900">{label}</RadioGroup.Label>

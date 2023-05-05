@@ -8,12 +8,11 @@ import "yup-phone-lite";
 
 import { OrderFormInterface } from '../interfaces/order-form';
 import LoadingSpinner from "./LoadingSpinner";
-import { NextResponse } from "next/server";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
 import RadioOptions from "./RadioOptions";
 
-import { orderTypes } from "@/data/ordertype-list.js";
+import { orderTypes } from "@/data/ordertype-list";
 
 const INSTAGRAM_BASEURL = "https://www.instagram.com/";
 
@@ -61,6 +60,7 @@ export default function OrderForm() {
   const [submitting, setSubmitting] = useState(false);
   const [isFailedDialogOpen, setIsFailedDialogOpen] = useState(false);
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
+  const [orderType, setOrderType] = useState(DEFAULT_VALUES.orderType);
 
   const {
     register,
@@ -80,19 +80,19 @@ export default function OrderForm() {
         throw new Error(`Caught a bot. ${stringData}`);
       }
       //To send the full instagram account link in the back end
-      data.instagramLink = INSTAGRAM_BASEURL + data.instagramLink;
+      data = setOrderData(data);
+      console.log(data);
+      // const response = await fetch('/api/orders', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // }) as NextResponse;
 
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }) as NextResponse;
-
-      if (response.status !== 200) {
-        let body = await response.json();
-        console.error(body);
-        throw new Error(body);
-      } 
+      // if (response.status !== 200) {
+      //   let body = await response.json();
+      //   console.error(body);
+      //   throw new Error(body);
+      // } 
 
       setIsSuccessDialogOpen(true);
       reset(DEFAULT_VALUES);
@@ -101,6 +101,12 @@ export default function OrderForm() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  const setOrderData = (data: OrderFormInterface): OrderFormInterface => {
+    data.instagramLink = INSTAGRAM_BASEURL + data.instagramLink;
+    data.orderType = orderType;
+    return data;
   }
 
   return (
@@ -284,7 +290,7 @@ export default function OrderForm() {
                   <RadioOptions
                     label="Order Type"
                     options={orderTypes}
-                    handleUpdatedSelection={(selection) => {console.log(selection)}}
+                    handleUpdatedSelection={(selection) => {setOrderType(selection)}}
                   />
                 </div>
 
