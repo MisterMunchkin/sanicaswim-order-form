@@ -13,6 +13,7 @@ import OrderFailedModal from "./OrderFailedModal";
 import RadioOptions from "./RadioOptions";
 
 import { orderTypes } from "@/data/ordertype-list";
+import { NextResponse } from "next/server";
 
 const INSTAGRAM_BASEURL = "https://www.instagram.com/";
 
@@ -79,20 +80,20 @@ export default function OrderForm() {
         const stringData = JSON.stringify(data);
         throw new Error(`Caught a bot. ${stringData}`);
       }
-      //To send the full instagram account link in the back end
+      //Update order data.
       data = setOrderData(data);
-      console.log(data);
-      // const response = await fetch('/api/orders', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data)
-      // }) as NextResponse;
 
-      // if (response.status !== 200) {
-      //   let body = await response.json();
-      //   console.error(body);
-      //   throw new Error(body);
-      // } 
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }) as NextResponse;
+
+      if (response.status !== 200) {
+        let body = await response.json();
+        console.error(body);
+        throw new Error(body);
+      } 
 
       setIsSuccessDialogOpen(true);
       reset(DEFAULT_VALUES);

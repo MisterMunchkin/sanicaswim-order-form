@@ -3,6 +3,9 @@ import { NotionProperty } from '@/classes/notion-classes/notion-property';
 import type { OrderFormInterface } from "@/interfaces/order-form";
 import { RichTextObject } from '@/classes/notion-classes/notion-objects/rich-text';
 import { AddressFormInterface } from "@/interfaces/address-form";
+import { OrderTypeName } from "@/interfaces/order-type-radio";
+
+type NotionStatusType = "Pre order" | "Not started" | "Packed" | "For pick-up" | "Shipped";
 
 @JsonObject()
 export class NotionOrderForm {
@@ -45,7 +48,7 @@ export class NotionOrderForm {
     this.instagramLink = new NotionProperty();
     this.instagramLink.url = order.instagramLink;
     
-    this.status = new NotionProperty('status');
+    this.status = new NotionProperty('status', GetOrderTypeToStatusMapping(order.orderType));
     this.date = new NotionProperty('date');
 
     this.orders = new NotionProperty('richText');
@@ -68,4 +71,12 @@ export class NotionOrderForm {
   private getShippingDetailsString(name: string, contactNumber: string, address: string): string {
     return name + '\n' + contactNumber + '\n' + address;
   }
+}
+
+//If order type is pre order, then should get Pre order, if not, then Not started.
+function GetOrderTypeToStatusMapping(orderType: OrderTypeName): NotionStatusType {
+  if (orderType !== "Pre Order") {
+    return "Not started";
+  }
+  return "Pre order";
 }
