@@ -8,9 +8,12 @@ import "yup-phone-lite";
 
 import { OrderFormInterface } from '../interfaces/order-form';
 import LoadingSpinner from "./LoadingSpinner";
-import { NextResponse } from "next/server";
 import OrderSuccessModal from "./OrderSuccessModal";
 import OrderFailedModal from "./OrderFailedModal";
+import RadioOptions from "./RadioOptions";
+
+import { orderTypes } from "@/data/ordertype-list";
+import { NextResponse } from "next/server";
 
 const INSTAGRAM_BASEURL = "https://www.instagram.com/";
 
@@ -27,6 +30,7 @@ const DEFAULT_VALUES: OrderFormInterface = {
     postCode: '',
   },
   order: '',
+  orderType: 'Order',
   honeyPotEmail: ''
 }
 
@@ -57,6 +61,7 @@ export default function OrderForm() {
   const [submitting, setSubmitting] = useState(false);
   const [isFailedDialogOpen, setIsFailedDialogOpen] = useState(false);
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
+  const [orderType, setOrderType] = useState(DEFAULT_VALUES.orderType);
 
   const {
     register,
@@ -75,8 +80,8 @@ export default function OrderForm() {
         const stringData = JSON.stringify(data);
         throw new Error(`Caught a bot. ${stringData}`);
       }
-      //To send the full instagram account link in the back end
-      data.instagramLink = INSTAGRAM_BASEURL + data.instagramLink;
+      //Update order data.
+      data = setOrderData(data);
 
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -97,6 +102,12 @@ export default function OrderForm() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  const setOrderData = (data: OrderFormInterface): OrderFormInterface => {
+    data.instagramLink = INSTAGRAM_BASEURL + data.instagramLink;
+    data.orderType = orderType;
+    return data;
   }
 
   return (
@@ -275,6 +286,15 @@ export default function OrderForm() {
                     {...register("order")}
                   ></textarea>
                 </div>
+
+                <div className="col-span-3">
+                  <RadioOptions
+                    label="Order Type"
+                    options={orderTypes}
+                    handleUpdatedSelection={(selection) => {setOrderType(selection)}}
+                  />
+                </div>
+
                 <div className="col-start-2 col-span-1 place-content-center">
                   <button
                     type="submit"
