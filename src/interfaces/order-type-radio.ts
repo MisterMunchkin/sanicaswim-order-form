@@ -3,4 +3,4 @@ export interface OrderTypeRadioInterface {
   description: string
 }
 
-export type OrderTypeName = "Order" | "Pre Order";
+export type OrderTypeName = "Order" | "Pre-order";

@@ -3,10 +3,10 @@ import { OrderTypeRadioInterface } from "@/interfaces/order-type-radio";
 export const orderTypes: Array<OrderTypeRadioInterface> = [
   {
     name: 'Order',
-    description: 'Onhand products ready for delivery'
+    description: 'Onhand and ready for delivery'
   },
   {
-    name: 'Pre Order',
-    description: 'Wait for restock'
+    name: 'Pre-order',
+    description: 'Wait for restock (2 - 3 weeks)'
   }
 ]
