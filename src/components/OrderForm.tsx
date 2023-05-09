@@ -112,7 +112,7 @@ export default function OrderForm() {
 
   return (
     <div className="max-w-md w-full">
-      <div className='mt-5 md:col-span-2 md:mt-0'>
+      <div className='mt-5 md:col-span-2'>
         <form 
           onSubmit={handleSubmit(onSubmit)} 
           name="order-form" 
@@ -295,7 +295,7 @@ export default function OrderForm() {
                   />
                 </div>
 
-                <div className="col-start-2 col-span-1 place-content-center">
+                <div className="col-start-2 col-span-1 place-content-center mt-3">
                   <button
                     type="submit"
                     disabled={submitting}

@@ -26,7 +26,7 @@ function Home() {
           fill
         />
       </div>
-      <div className="w-full space-y-8">
+      <div className="w-full">
         <div>
           <div className='flex justify-center mb-3'>
             <Image
@@ -36,7 +36,7 @@ function Home() {
               priority
             />
           </div>
-          <p className='text-center text-sm leading-6'>
+          <p className='text-center text-sm leading-6 mt-12'>
             <a target="_blank" href="https://www.instagram.com/sanicaswim/" className="text-ss-blue underline decoration-wavy underline-offset-4 hover:underline hover:decoration-wavy sm:no-underline">@SanicaSwim</a> will DM to confirm your order after submission
           </p>
         </div>

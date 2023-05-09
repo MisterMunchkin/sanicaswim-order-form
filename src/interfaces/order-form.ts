@@ -1,4 +1,5 @@
 import { AddressFormInterface } from "./address-form";
+import { OrderTypeName } from "./order-type-radio";
 
 export interface OrderFormInterface {
   instagramLink: string,
@@ -6,6 +7,6 @@ export interface OrderFormInterface {
   phoneNumber: string,
   address: AddressFormInterface,
   order: string,
-  orderType: 'Order' | 'Pre Order'
+  orderType: OrderTypeName
   honeyPotEmail?: string
 };

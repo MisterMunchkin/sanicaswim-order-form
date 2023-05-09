@@ -75,7 +75,7 @@ export class NotionOrderForm {
 
 //If order type is pre order, then should get Pre order, if not, then Not started.
 function GetOrderTypeToStatusMapping(orderType: OrderTypeName): NotionStatusType {
-  if (orderType !== "Pre Order") {
+  if (orderType !== "Pre-order") {
     return "Not started";
   }
   return "Pre order";
