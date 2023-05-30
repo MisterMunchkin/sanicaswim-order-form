@@ -63,8 +63,9 @@ export class NotionOrderForm {
   }
 
   private getAddressString(address: AddressFormInterface): string {
-    let addressString = address.addressLine2 ?? '';
-    addressString += address.addressLine1 + ', ' + address.barangay + ', ' + address.city + ', ' + address.province + ' ' + address.postCode;
+    let addressString = (address.addressLine2) ? `${address.addressLine2} ` : '';
+    addressString += `${address.addressLine1}, ${address.barangay}, ${address.city}, ${address.province} ${address.postCode}`;
+
     return addressString;
   }
 

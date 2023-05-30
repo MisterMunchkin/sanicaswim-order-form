@@ -134,7 +134,7 @@ export default function OrderForm() {
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="instagramLink">
-                    Instagram Link <span className="text-red-500">*</span>
+                    Instagram Account <span className="text-red-500">*</span>
                     {errors.instagramLink && (
                       <span className="text-red-500 mt-1 pl-1">{typeof errors.instagramLink.message === 'string' ? errors.instagramLink.message : 'Invalid input'}</span>
                     )}
